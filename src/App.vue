@@ -4,5 +4,4 @@
   </div>
 </template>
 
-<style lang="scss">
-</style>
+<style src="./css/reset.css" />

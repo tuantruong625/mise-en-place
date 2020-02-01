@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="signin-container">
     <h1>Sign in Page</h1>
     <button data-test="signInButton">Sign In</button>
   </div>
@@ -12,9 +12,10 @@ export default {
 </script>
 
 <style scoped>
-  .container {
+  .signin-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
   }
 </style>
