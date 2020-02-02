@@ -1,16 +1,15 @@
 <template>
   <div class="home">
-    <sign-in />
+    <h1>Home</h1>
+    <router-view />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import SignIn from '@/views/SignIn';
 export default {
   name: 'home',
   components: {
-    SignIn,
   },
 };
 </script>
