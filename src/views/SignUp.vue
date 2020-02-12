@@ -19,7 +19,7 @@
     <br>
     <button v-on:click="signUp" class="button">Sign Up!</button>
     <button class="button">
-      <router-link to="/login">
+      <router-link to="/sign-in">
         Back
       </router-link>
     </button>
