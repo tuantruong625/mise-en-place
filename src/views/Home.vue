@@ -1,15 +1,25 @@
 <template>
   <div class="home">
     <h1>Home</h1>
+    <button @click="signout">Logout</button>
     <router-view />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import firebase from 'firebase';
 export default {
   name: 'home',
   components: {
+  },
+  methods: {
+    signout(e) {
+      e.stopPropagation();
+      firebase.auth().signOut();
+      this.$router.push({
+        name: 'sign-in',
+      });
+    },
   },
 };
 </script>
