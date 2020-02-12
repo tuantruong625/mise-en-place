@@ -4,22 +4,40 @@
     <section class="signin__login">
       <img class="signin__logo" src="../assets/logo.png" alt="">
 
-      <label for="username" class="signin__label">
-        Username
-        <input class="sigin__input" type="text" name="username" id="username">
+      <label for="email" class="signin__label">
+        Email
+        <input class="sigin__input" type="text" name="email" id="email" v-model="email">
       </label>
       <label for="password" class="signin__label">
         Password
-        <input class="sigin__input" type="text" name="password" id="password">
+        <input class="sigin__input" type="text" name="password" id="password" v-model="password">
       </label>
-      <button class="signin__button" data-test="signInButton"><router-link to="/home">Sign In</router-link></button>
+      <button class="signin__button" data-test="signInButton" @click="login">Login</button>
+      <p><router-link to="/signup">Create account here</router-link></p>
     </section>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase';
 export default {
-  name: 'SignIn',
+  data() {
+    return {
+      email: null,
+      password: null,
+    };
+  },
+  methods: {
+    login() {
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) => {
+        // eslint-disable-next-line no-console
+        console.log(user);
+        this.$router.replace('/home');
+      }).catch((err) => {
+        alert(err.measure());
+      });
+    },
+  },
 };
 </script>
 
