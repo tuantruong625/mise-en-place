@@ -26,7 +26,7 @@
         <router-link to="/signup">Sign up here</router-link>
       </span>
 
-      <button data-test="signInButton" @click="login">Login</button>
+      <button data-test="signInButton" @click="signin">Sign in</button>
     </section>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
     };
   },
   methods: {
-    login() {
+    signin() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) => {
         // eslint-disable-next-line no-console
         console.log(user);
