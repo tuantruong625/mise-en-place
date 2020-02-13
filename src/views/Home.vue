@@ -16,8 +16,9 @@ export default {
     signout(e) {
       e.stopPropagation();
       firebase.auth().signOut();
-      this.$router.push({
-        name: 'sign-in',
+      this.$router.push('/sign-in').catch(e => {
+        // eslint-disable-next-line no-console
+        console.log(e.message);
       });
     },
   },
