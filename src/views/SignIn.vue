@@ -138,26 +138,8 @@ export default {
         text-decoration: none;
       }
 
-
-      a:link {
-
-      }
-
-      a:visited {
-
-      }
-
-      a:focus {
-
-
-      }
-
       a:hover {
         text-decoration: underline;
-      }
-
-      a:active {
-
       }
     }
   }
