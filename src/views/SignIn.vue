@@ -23,7 +23,7 @@
 
       <span class="sign-in__link">
         Don't have an account?
-        <router-link to="/signup">Sign up here</router-link>
+        <router-link to="/sign-up">Sign up here</router-link>
       </span>
 
       <button data-test="signInButton" @click="signin">Sign in</button>
