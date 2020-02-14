@@ -61,7 +61,7 @@ export default {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) => {
         // eslint-disable-next-line no-console
         console.log(user);
-        this.$router.replace('/home');
+        this.$router.replace('/tables');
       }).catch((err) => {
         this.validate(err);
       });

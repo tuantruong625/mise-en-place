@@ -1,7 +1,11 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
-    <button @click="signout">Logout</button>
+    <nav class="nav">
+      <img class="" src="../assets/logo.png" alt="">
+      <router-link to="/tables">Tables</router-link>
+      <router-link to="/menu">Menu</router-link>
+      <button @click="signout">Logout</button>
+    </nav>
     <router-view />
   </div>
 </template>
@@ -24,3 +28,6 @@ export default {
   },
 };
 </script>
+<style scoped lang="scss">
+
+</style>
