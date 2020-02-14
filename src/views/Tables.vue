@@ -10,11 +10,10 @@ export default {
 };
 </script>
 
-<style scoped>
-$navbar-height: 96px;
+<style lang="scss" scoped>
 
 .table-container {
     background: #EFEEEE;
-    min-height: calc(100vh - $navbar-height);
+    min-height: calc(100vh - 96px);
 }
 </style>
