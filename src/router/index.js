@@ -1,22 +1,33 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import firebase from 'firebase';
+import SignIn from '../views/SignIn';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home,
+    redirect: '/sign-in',
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/sign-in',
+    name: 'sign-in',
+    component: SignIn,
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignIn.vue'),
+  },
+  {
+    path: '/sign-up',
+    name: 'sign-up',
+    component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue'),
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 
@@ -24,6 +35,19 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  let currentUser = firebase.auth().currentUser;
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) {
+    next('sign-in');
+  } else if (!requiresAuth && currentUser) {
+    next('home');
+  } else {
+    next();
+  }
 });
 
 export default router;
