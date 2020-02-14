@@ -21,6 +21,7 @@ const routes = [
     name: 'sign-up',
     component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue'),
   },
+
   {
     path: '/home',
     name: 'home',
@@ -28,6 +29,24 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
+    children: [
+      {
+        path: '/menu',
+        name: 'menu',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Menu.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/tables',
+        name: 'tables',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Tables.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+    ],
   },
 ];
 
