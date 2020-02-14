@@ -51,7 +51,13 @@ export default {
         console.log(user);
         this.$router.replace('/login');
       }).catch((err) => {
-        alert(err.measure());
+        let errorCode = err.code;
+        let errorMessage = err.message;
+        if (errorCode == 'auth/email-already-in-use') {
+          alert('Email is already in use.');
+        } else {
+          alert(errorMessage);
+        }
       });
     },
   },
