@@ -8,7 +8,11 @@
         <router-link to="/menu"><img class="nav__icon" src="../assets/utensils-solid.svg" alt=""></router-link>
       </div>
 
-      <button class="nav__sign-out-btn" @click="signout">Logout</button>
+      <div>
+        {{ user.email }} |
+        <button class="nav__sign-out-btn" @click="signout">Logout</button>
+      </div>
+
     </nav>
     <router-view />
   </div>
@@ -17,8 +21,15 @@
 <script>
 import firebase from 'firebase';
 export default {
-  name: 'home',
-  components: {
+  data() {
+    return {
+      user: null,
+    };
+  },
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.user = user;
+    });
   },
   methods: {
     signout(e) {
