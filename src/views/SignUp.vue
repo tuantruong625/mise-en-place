@@ -66,7 +66,7 @@ export default {
     signUp() {
       this.validation();
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then((user) => {
-        this.$router.replace('/login');
+        this.$router.replace('/tables');
       }).catch((err) => {
         this.firebaseValidation(err);
       });

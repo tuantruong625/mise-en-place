@@ -12,9 +12,9 @@
         {{ user.displayName }} |
         <button class="nav__sign-out-btn" @click="signout">Logout</button>
       </div>
-
     </nav>
-    <router-view />
+
+    <router-view @set-display-name="setDisplayName"/>
   </div>
 </template>
 
@@ -34,6 +34,9 @@ export default {
       e.stopPropagation();
       firebase.auth().signOut();
       this.$router.replace('/sign-in').catch(e => {});
+    },
+    setDisplayName(displayName) {
+      this.user.displayName = displayName;
     },
   },
 };
@@ -62,5 +65,4 @@ export default {
     color: #74C0FC;
   }
 }
-
 </style>
