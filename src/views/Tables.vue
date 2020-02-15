@@ -39,6 +39,7 @@ export default {
       });
 
       this.$emit('set-display-name', this.displayName);
+      this.showModal = false;
     },
   },
   created() {
