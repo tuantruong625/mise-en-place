@@ -66,9 +66,7 @@ export default {
     signUp() {
       this.validation();
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then((user) => {
-        // eslint-disable-next-line no-console
-        console.log(user);
-        this.$router.replace('/login');
+        this.$router.replace('/tables');
       }).catch((err) => {
         this.firebaseValidation(err);
       });
@@ -81,7 +79,7 @@ export default {
     firebaseValidation(err) {
       this.errorCode = err.code;
       if (this.errorCode === 'auth/email-already-in-use') {
-        this.passwordErrorMessage = 'Email is already in use.';
+        this.emailErrorMessage = 'Email is already in use.';
       } else if (this.errorCode === 'auth/invalid-email') {
         this.emailErrorMessage = 'You entered an invalid email.';
       }

@@ -11,7 +11,7 @@
       <div class="sign-in__form--container">
         <label for="email" class="sign-in__label">
           <span>Email</span>
-          <input class="signin__input" type="text" name="email" id="email" v-model="email" @change="signin" >
+          <input class="signin__input" type="text" name="email" id="email" v-model="email">
         </label>
         <span class="sign-in__error-message">{{ emailErrorMessage }}</span>
       </div>
@@ -19,7 +19,7 @@
       <div class="sign-in__form--container">
         <label for="password" class="signin__label">
           <span>Password</span>
-          <input class="signin__input" type="password" name="password" id="password" v-model="password" @change="signin">
+          <input class="signin__input" type="password" name="password" id="password" v-model="password">
         </label>
         <span class="sign-in__error-message">{{ passwordErrorMessage }}</span>
       </div>
@@ -57,9 +57,8 @@ export default {
       !this.password ? this.passwordErrorMessage = 'Password Required' : this.passwordErrorMessage = '';
 
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) => {
-        // eslint-disable-next-line no-console
-        console.log(user);
-        this.$router.replace('/tables');
+        this.$router.push('/tables').catch(err => {
+        });
       }).catch((err) => {
         this.validate(err);
       });

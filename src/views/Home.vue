@@ -9,12 +9,12 @@
       </div>
 
       <div>
-        {{ user.email }} |
+        {{ user.displayName }} |
         <button class="nav__sign-out-btn" @click="signout">Logout</button>
       </div>
-
     </nav>
-    <router-view />
+
+    <router-view @set-display-name="setDisplayName"/>
   </div>
 </template>
 
@@ -27,18 +27,16 @@ export default {
     };
   },
   created() {
-    firebase.auth().onAuthStateChanged(user => {
-      this.user = user;
-    });
+    this.user = firebase.auth().currentUser;
   },
   methods: {
     signout(e) {
       e.stopPropagation();
       firebase.auth().signOut();
-      this.$router.push('/sign-in').catch(e => {
-        // eslint-disable-next-line no-console
-        console.log(e.message);
-      });
+      this.$router.replace('/sign-in').catch(e => {});
+    },
+    setDisplayName(displayName) {
+      this.user.displayName = displayName;
     },
   },
 };
@@ -67,5 +65,4 @@ export default {
     color: #74C0FC;
   }
 }
-
 </style>
