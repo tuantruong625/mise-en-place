@@ -1,14 +1,13 @@
 <template>
   <div class="sign-in">
-    <header class="sign-in__header">
-      <div class="sign-in__header--logo">
-        <img class="" src="../assets/logo.png" alt="">
-        <h1>Mise en Place</h1>
-      </div>
-
-      <p>Sign into your account.</p>
-    </header>
     <section class="sign-in__form">
+      <img class="sign-in__header--logo" src="../assets/logo.png" alt="">
+
+      <header class="sign-in__header">
+        <h1>Mise en Place</h1>
+        <p>Sign into your account.</p>
+      </header>
+
       <div class="sign-in__form--container">
         <label for="email" class="sign-in__label">
           <span>Email</span>
@@ -18,7 +17,6 @@
       </div>
 
       <div class="sign-in__form--container">
-
         <label for="password" class="signin__label">
           <span>Password</span>
           <input class="signin__input" type="password" name="password" id="password" v-model="password" @change="signin">
@@ -94,7 +92,7 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: #EFEEEE;
+    background: #FFF;
     height: 100vh;
     color: #495057;
 
@@ -104,20 +102,30 @@ export default {
     }
 
     &__header {
+      grid-area: sign-in-header;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 3rem;
+      padding-top: 5rem;
+
+      h1 {
+        font-size: 2rem;
+      }
 
       p {
+        margin-top: 1rem;
         font-size: 1.25rem;
-        margin-top: 1.5rem;
       }
 
       &--logo {
         display: flex;
         align-items: center;
         font-size: 2rem;
+        z-index: 1;
+        width: 10rem;
+        position: absolute;
+        top: calc(50% - 18.5rem);
+        left: calc(50% - 5.25rem);
 
         img {
           margin-right: 1rem;
@@ -127,21 +135,34 @@ export default {
 
     &__form {
       width: 650px;
-      height: 300px;
-      background: #EFEEEE;
+      height: 400px;
+      background: #f8f9fa;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
       border-radius: 20px;
       display: grid;
-      grid-template-columns: auto auto;
-      grid-template-rows: 10rem 8rem;
+      grid-template-areas:
+      "sign-in-header sign-in-header"
+      "email-input password-input"
+      "sign-up sign-in-button";
       justify-items: center;
       align-items: center;
+
+      &::after {
+        content: '';
+        width: 11rem;
+        height: 11rem;
+        background: #FFF;
+        position: absolute;
+        border-radius: 200px;
+        top: calc(50% - 19rem);
+        left: calc(50% - 5.75rem);
+      }
 
       label {
         display: flex;
         flex-direction: column;
-        margin: 3rem 0 1rem 0;
+        margin: 1rem 0 1rem 0;
 
         span {
           margin: 0 0 0.5rem 1rem;
@@ -149,7 +170,7 @@ export default {
       }
 
       input {
-        background: #EFEEEE;
+        background: #f8f9fa;
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
         border-radius: 20px;
@@ -158,6 +179,7 @@ export default {
       }
 
       button {
+        grid-area: sign-in-button;
         background: #74C0FC;
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
@@ -165,14 +187,15 @@ export default {
         width: 16.5rem;
         height: 3.25rem;
         color: #fff;
-      }
-
-      &--container {
-        height: 100%;
+        margin-top: 0.5rem;
+        margin-bottom: 2rem;
       }
     }
 
     &__link {
+      grid-area: sign-up;
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
       a {
         color: #74C0FC;
         text-decoration: none;
