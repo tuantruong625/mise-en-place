@@ -3,14 +3,14 @@
     <h1>Tables</h1>
 
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
-      <h3 slot="header">Set your username</h3>
+      <h3 slot="header">Set your display name</h3>
       <div slot="body" class="display-name__body">
 
         <label for="display-name" class="display-name__body--label">
           <span>Display Name</span>
           <input class="display-name__body--input" type="text" name="display-name" id="display-name" v-model="displayName">
         </label>
-        <button class="display-name__body--button" @click="addUsername">Set Display Name</button>
+        <button class="display-name__body--button" @click="addUsername">Set</button>
 
       </div>
     </modal>
