@@ -32,8 +32,10 @@ export default {
   methods: {
     signout(e) {
       e.stopPropagation();
-      firebase.auth().signOut();
-      this.$router.replace('/sign-in').catch(e => {});
+      firebase.auth().signOut().then(() => {
+        this.$router.replace('/sign-in').catch(e => {});
+      }).catch(err => {});
+
     },
     setDisplayName(displayName) {
       this.user.displayName = displayName;
