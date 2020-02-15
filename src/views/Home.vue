@@ -9,7 +9,7 @@
       </div>
 
       <div>
-        {{ user.email }} |
+        {{ user.displayName }} |
         <button class="nav__sign-out-btn" @click="signout">Logout</button>
       </div>
 
@@ -27,18 +27,13 @@ export default {
     };
   },
   created() {
-    firebase.auth().onAuthStateChanged(user => {
-      this.user = user;
-    });
+    this.user = firebase.auth().currentUser;
   },
   methods: {
     signout(e) {
       e.stopPropagation();
       firebase.auth().signOut();
-      this.$router.push('/sign-in').catch(e => {
-        // eslint-disable-next-line no-console
-        console.log(e.message);
-      });
+      this.$router.replace('/sign-in').catch(e => {});
     },
   },
 };
