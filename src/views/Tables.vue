@@ -1,17 +1,13 @@
 <template>
   <section class="table-container">
     <h1>Main Dining Room</h1>
-    occupied tables: {{ occupiedTables }} || empty tables: {{ emptyTables }}
-    <div v-for="table in tables" :key="table.id">
-      <pre> 
-            <code>
-            <div class="table"  @click="hostTable(table.id, user.displayName)">
-              {{ table.id }}
-              {{ table.serverId }}
-            </div>
-            </code>
-
-            </pre>
+    <h3>occupied tables: {{ occupiedTables }} || empty tables: {{ emptyTables }}</h3> 
+    <div class="column" v-for="table in tables" :key="table.id">
+      <div class="table"  @click="hostTable(table.id, user.displayName)">
+        <div>{{ table.id }}</div>
+        <span :class="toggleDot" />
+        <div>{{ table.serverId }}</div>
+      </div>
     </div>
     <!-- <modal v-if="tableModal" @close="tableModal = false">
       <h3 slot="header">Would you like to remove yourself from the table?</h3>
@@ -50,6 +46,7 @@ export default {
       showModal: true,
       tableModal: false,
       tables: [],
+      toggleDot: 'green-dot',
       serverName: null,
       occupiedTables: 0,
       emptyTables: 0,
@@ -74,10 +71,12 @@ export default {
       this.serverName = serverName;
       this.toggleTable = !this.toggleTable;
       if (this.toggleTable == false){
+        this.toggleDot = 'red-dot';
         this.toggleName = serverName;
       }
       else {
         this.tableModal = true;
+        this.toggleDot = 'green-dot';
         this.toggleName = '';
       } 
       firebase
@@ -121,6 +120,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.red-dot{
+  height: 25px;
+  width: 25px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+.green-dot{
+  height: 25px;
+  width: 25px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Clear floats after the columns */
+.table-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
 .table-container {
     background: #EFEEEE;
@@ -128,12 +160,13 @@ export default {
 }
 
 .table {
+  height: 100px;
+  display: block;
   border-radius: 10px;
   background:#EFEEEE;
-  border: 15px solid #EFEEEE;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 50px;
-  margin: 20px;
+  padding: 16px;
+  text-align: center;
 }
 
 .display-name {
