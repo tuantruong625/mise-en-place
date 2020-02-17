@@ -1,7 +1,17 @@
 <template>
   <section class="table-container">
-    <h1>Tables</h1>
+    <h1>Main Dining Room</h1>
+    occupied tables: {{ occupiedTables }} || empty tables: {{ emptyTables }}
+    <div v-for="table in tables" :key="table.id">
+      <pre> 
+            <code>
+            <div class="table"  @click="hostTable(table.id, user.displayName)">
+              {{ table.serverId }}
+            </div>
+            </code>
 
+            </pre>
+    </div>
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
       <h3 slot="header">Set your display name</h3>
       <div slot="body" class="display-name__body">
@@ -30,20 +40,72 @@ export default {
       user: null,
       displayName: null,
       showModal: true,
+      tables: [],
+      serverName: null,
+      occupiedTables: 0,
+      emptyTables: 0,
+      toggleTable: true,
+      toggleName: '',
     };
   },
   methods: {
+    tableCount(){
+      this.occupiedTables =  0;
+      this.emptyTables = 0;
+      for (var i=0; i<this.tables.length; i++){
+        if (this.tables[i].isOpen == true){
+          this.emptyTables++;
+        }
+        else if (this.tables[i].isOpen == false){
+          this.occupiedTables++;
+        }
+      }
+    },
+    hostTable(tableId, serverName){
+      this.serverName = serverName;
+      this.toggleTable = !this.toggleTable;
+      if (this.toggleTable == false){
+        this.toggleName = serverName;
+      }
+      else {
+        this.toggleName = '';
+      } 
+      firebase
+        .firestore()
+        .collection('tables')
+        .doc(tableId)
+        .update({
+          isOpen: this.toggleTable,
+          serverId: this.toggleName,
+        });
+      this.tableCount();
+    },
     addUsername() {
       this.user.updateProfile({
         displayName: this.displayName,
       });
-
       this.$emit('set-display-name', this.displayName);
       this.showModal = false;
     },
+    async getTables() {
+      let tablesRef = await firebase
+        .firestore()
+        .collection('tables');
+      tablesRef.onSnapshot(snap => {
+        this.tables = [];
+        snap.forEach(doc => {
+          let table = doc.data();
+          table.id = doc.id;
+          this.tables.push(table);
+        });
+        this.tableCount();
+      });
+    },
   },
+
   created() {
     this.user = firebase.auth().currentUser;
+    this.getTables();
   },
 };
 </script>
@@ -53,6 +115,12 @@ export default {
 .table-container {
     background: #EFEEEE;
     min-height: calc(100vh - 96px);
+}
+
+.table {
+  background:#74C0FC;
+  height: 50px;
+  width: 50px;
 }
 
 .display-name {
@@ -88,4 +156,5 @@ export default {
     }
   }
 }
+
 </style>
