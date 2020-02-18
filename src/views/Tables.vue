@@ -5,7 +5,7 @@
     <h3>occupied tables: <b style="color: red;">{{ occupiedTables }}</b> | empty tables: <b  style="color: green">{{ emptyTables }}</b></h3> 
     <br>
     <div class="column" v-for="table in tables" :key="table.id">
-      <div class="table"  @click="hostTable(table.id, user.displayName)">
+      <div class="table" data-test="table"  @click="hostTable(table.id, user.displayName)">
         <div>
           <span v-if="table.isOpen" class="green-dot" />
           <span v-else class="red-dot" />
@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       user: null,
-      displayName: null,
+      displayName: '',
       showModal: true,
       tableModal: false,
       tables: [],
@@ -171,7 +171,7 @@ h3 {
 @media screen and (max-width: 600px) {
   .column {
     width: 100%;
-    display: block;
+    display: grid;
     margin-bottom: 20px;
   }
 }
@@ -179,7 +179,7 @@ h3 {
 /* Clear floats after the columns */
 .table-container:after {
   content: "";
-  display: table;
+  display: inline-grid;
   clear: both;
 }
 
