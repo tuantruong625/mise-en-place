@@ -14,12 +14,12 @@
         <div>{{ table.serverId }}</div>
       </div>
     </div>
-    <!-- <modal v-if="tableModal" @close="tableModal = false">
+    <modal v-if="tableModal" @close="tableModal = false">
       <h3 slot="header">Would you like to remove yourself from the table?</h3>
       <div slot="body" class="display-name__body">
-        <button class="display-name__body--button" @click="">Confirm</button>
+        <button class="display-name__body--button" @click="removeHost()">Confirm</button>
       </div>
-    </modal>   -->
+    </modal>  
 
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
       <h3 slot="header">Set your display name</h3>
@@ -57,6 +57,7 @@ export default {
       emptyTables: 0,
       toggleTable: true,
       toggleName: '',
+      tableId: '',
     };
   },
   methods: {
@@ -72,25 +73,40 @@ export default {
         }
       }
     },
+    removeHost(){
+      this.tableModal = false;
+      this.toggleTable = true;
+      firebase
+        .firestore()
+        .collection('tables')
+        .doc(this.tableId)
+        .update({
+          isOpen: true,
+          serverId: '',
+        });
+      this.tableCount();
+      this.tableId = '';
+    },
     hostTable(tableId, serverName){
-      this.serverName = serverName;
-      this.toggleTable = !this.toggleTable;
-      if (this.toggleTable == false){
-        this.toggleDot = 'red-dot';
-        this.toggleName = serverName;
+      if (this.tableId == ''){
+        this.toggleTable = false;
+        this.tableId = tableId;
       }
-      else {
+      else if (this.tableId == tableId){
         this.tableModal = true;
-        this.toggleDot = 'green-dot';
-        this.toggleName = '';
       } 
+      else {
+        this.tableId = tableId;
+        this.toggleTable = false;
+      }
+      
       firebase
         .firestore()
         .collection('tables')
         .doc(tableId)
         .update({
           isOpen: this.toggleTable,
-          serverId: this.toggleName,
+          serverId: serverName,
         });
       this.tableCount();
     },
