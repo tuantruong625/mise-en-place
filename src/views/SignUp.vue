@@ -37,7 +37,7 @@
         <router-link to="/sign-in">Back</router-link>
       </span>
 
-      <button data-test="signInButton" @click="signUp">Create Account</button>
+      <button data-test="signUpButton" @click="signUp">Create Account</button>
     </section>
   </div>
 </template>
