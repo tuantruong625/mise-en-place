@@ -5,8 +5,7 @@
     <div class="column" v-for="table in tables" :key="table.id">
       <div class="table"  @click="hostTable(table.id, user.displayName)">
         <div>{{ table.id }}</div>
-        <span v-if="table.isOpen" class="green-dot" />
-        <span v-else class="red-dot" />
+        <span :class="toggleDot" />
         <div>{{ table.serverId }}</div>
       </div>
     </div>
