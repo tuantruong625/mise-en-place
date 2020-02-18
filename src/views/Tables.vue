@@ -6,20 +6,12 @@
       <pre> 
             <code>
             <div class="table"  @click="hostTable(table.id, user.displayName)">
-              {{ table.id }}
               {{ table.serverId }}
             </div>
             </code>
 
             </pre>
     </div>
-    <!-- <modal v-if="tableModal" @close="tableModal = false">
-      <h3 slot="header">Would you like to remove yourself from the table?</h3>
-      <div slot="body" class="display-name__body">
-        <button class="display-name__body--button" @click="">Confirm</button>
-      </div>
-    </modal>   -->
-
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
       <h3 slot="header">Set your display name</h3>
       <div slot="body" class="display-name__body">
@@ -48,7 +40,6 @@ export default {
       user: null,
       displayName: null,
       showModal: true,
-      tableModal: false,
       tables: [],
       serverName: null,
       occupiedTables: 0,
@@ -77,7 +68,6 @@ export default {
         this.toggleName = serverName;
       }
       else {
-        this.tableModal = true;
         this.toggleName = '';
       } 
       firebase
@@ -128,12 +118,9 @@ export default {
 }
 
 .table {
-  border-radius: 10px;
-  background:#EFEEEE;
-  border: 15px solid #EFEEEE;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 50px;
-  margin: 20px;
+  background:#74C0FC;
+  height: 50px;
+  width: 50px;
 }
 
 .display-name {
