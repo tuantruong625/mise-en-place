@@ -1,16 +1,12 @@
 <template>
   <section class="table-container">
     <h1>Main Dining Room</h1>
-    <br>
-    <h3>occupied tables: <b style="color: red;">{{ occupiedTables }}</b> | empty tables: <b  style="color: green">{{ emptyTables }}</b></h3> 
-    <br>
+    <h3>occupied tables: {{ occupiedTables }} || empty tables: {{ emptyTables }}</h3> 
     <div class="column" v-for="table in tables" :key="table.id">
       <div class="table"  @click="hostTable(table.id, user.displayName)">
-        <div>
-          <span v-if="table.isOpen" class="green-dot" />
-          <span v-else class="red-dot" />
-          <b>{{ table.id }}</b>
-        </div>
+        <div>{{ table.id }}</div>
+        <span v-if="table.isOpen" class="green-dot" />
+        <span v-else class="red-dot" />
         <div>{{ table.serverId }}</div>
       </div>
     </div>
@@ -125,14 +121,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  font-size: 3em;
-  text-align: center;
-}
-h3 {
-  font-size: 2em;
-  text-align: center;
-}
 .red-dot{
   height: 25px;
   width: 25px;
