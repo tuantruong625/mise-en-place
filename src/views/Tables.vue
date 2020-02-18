@@ -9,7 +9,7 @@
         <div>
           <span v-if="table.isOpen" class="green-dot" />
           <span v-else class="red-dot" />
-          <b>&nbsp;{{ table.id }}</b>
+          <b>{{ table.id }}</b>
         </div>
         <div>{{ table.serverId }}</div>
       </div>
