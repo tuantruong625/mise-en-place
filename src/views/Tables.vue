@@ -14,12 +14,12 @@
         <div>{{ table.serverId }}</div>
       </div>
     </div>
-    <modal v-if="tableModal" @close="tableModal = false">
+    <!-- <modal v-if="tableModal" @close="tableModal = false">
       <h3 slot="header">Would you like to remove yourself from the table?</h3>
       <div slot="body" class="display-name__body">
-        <button class="display-name__body--button" @click="removeHost()">Confirm</button>
+        <button class="display-name__body--button" @click="">Confirm</button>
       </div>
-    </modal>  
+    </modal>   -->
 
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
       <h3 slot="header">Set your display name</h3>
@@ -57,7 +57,6 @@ export default {
       emptyTables: 0,
       toggleTable: true,
       toggleName: '',
-      tableId: '',
     };
   },
   methods: {
@@ -73,40 +72,25 @@ export default {
         }
       }
     },
-    removeHost(){
-      this.tableModal = false;
-      this.toggleTable = true;
-      firebase
-        .firestore()
-        .collection('tables')
-        .doc(this.tableId)
-        .update({
-          isOpen: true,
-          serverId: '',
-        });
-      this.tableCount();
-      this.tableId = '';
-    },
     hostTable(tableId, serverName){
-      if (this.tableId == ''){
-        this.toggleTable = false;
-        this.tableId = tableId;
+      this.serverName = serverName;
+      this.toggleTable = !this.toggleTable;
+      if (this.toggleTable == false){
+        this.toggleDot = 'red-dot';
+        this.toggleName = serverName;
       }
-      else if (this.tableId == tableId){
-        this.tableModal = true;
-      } 
       else {
-        this.tableId = tableId;
-        this.toggleTable = false;
-      }
-      
+        this.tableModal = true;
+        this.toggleDot = 'green-dot';
+        this.toggleName = '';
+      } 
       firebase
         .firestore()
         .collection('tables')
         .doc(tableId)
         .update({
           isOpen: this.toggleTable,
-          serverId: serverName,
+          serverId: this.toggleName,
         });
       this.tableCount();
     },
