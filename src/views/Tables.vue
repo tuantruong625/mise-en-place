@@ -1,6 +1,25 @@
 <template>
   <section class="table-container">
-    <h1>Tables</h1>
+    <h1>Main Dining Room</h1>
+    <br>
+    <h3>occupied tables: <b style="color: red;">{{ occupiedTables }}</b> | empty tables: <b  style="color: green">{{ emptyTables }}</b></h3> 
+    <br>
+    <div class="column" v-for="table in tables" :key="table.id">
+      <div class="table"  @click="hostTable(table.id, user.displayName)">
+        <div>
+          <span v-if="table.isOpen" class="green-dot" />
+          <span v-else class="red-dot" />
+          <b>&nbsp;{{ table.id }}</b>
+        </div>
+        <div>{{ table.serverId }}</div>
+      </div>
+    </div>
+    <modal v-if="tableModal" @close="tableModal = false">
+      <h3 slot="header">Would you like to remove yourself from the table?</h3>
+      <div slot="body" class="display-name__body">
+        <button class="display-name__body--button" @click="removeHost()">Confirm</button>
+      </div>
+    </modal>  
 
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
       <h3 slot="header">Set your display name</h3>
@@ -30,29 +49,153 @@ export default {
       user: null,
       displayName: null,
       showModal: true,
+      tableModal: false,
+      tables: [],
+      toggleDot: 'green-dot',
+      serverName: null,
+      occupiedTables: 0,
+      emptyTables: 0,
+      toggleTable: true,
+      toggleName: '',
+      tableId: '',
     };
   },
   methods: {
+    tableCount(){
+      this.occupiedTables =  0;
+      this.emptyTables = 0;
+      for (var i=0; i<this.tables.length; i++){
+        if (this.tables[i].isOpen == true){
+          this.emptyTables++;
+        }
+        else if (this.tables[i].isOpen == false){
+          this.occupiedTables++;
+        }
+      }
+    },
+    removeHost(){
+      this.tableModal = false;
+      this.toggleTable = true;
+      firebase
+        .firestore()
+        .collection('tables')
+        .doc(this.tableId)
+        .update({
+          isOpen: true,
+          serverId: '',
+        });
+      this.tableCount();
+      this.tableId = '';
+    },
+    hostTable(tableId, serverName){
+      if (this.tableId == ''){
+        this.toggleTable = false;
+        this.tableId = tableId;
+      }
+      else if (this.tableId == tableId){
+        this.tableModal = true;
+      } 
+      else {
+        this.tableId = tableId;
+        this.toggleTable = false;
+      }
+      
+      firebase
+        .firestore()
+        .collection('tables')
+        .doc(tableId)
+        .update({
+          isOpen: this.toggleTable,
+          serverId: serverName,
+        });
+      this.tableCount();
+    },
     addUsername() {
       this.user.updateProfile({
         displayName: this.displayName,
       });
-
       this.$emit('set-display-name', this.displayName);
       this.showModal = false;
     },
+    async getTables() {
+      let tablesRef = await firebase
+        .firestore()
+        .collection('tables');
+      tablesRef.onSnapshot(snap => {
+        this.tables = [];
+        snap.forEach(doc => {
+          let table = doc.data();
+          table.id = doc.id;
+          this.tables.push(table);
+        });
+        this.tableCount();
+      });
+    },
   },
+
   created() {
     this.user = firebase.auth().currentUser;
+    this.getTables();
   },
 };
 </script>
 
 <style lang="scss" scoped>
+h1 {
+  font-size: 3em;
+  text-align: center;
+}
+h3 {
+  font-size: 2em;
+  text-align: center;
+}
+.red-dot{
+  height: 25px;
+  width: 25px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+.green-dot{
+  height: 25px;
+  width: 25px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Clear floats after the columns */
+.table-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
 .table-container {
     background: #EFEEEE;
     min-height: calc(100vh - 96px);
+}
+
+.table {
+  height: 100px;
+  display: block;
+  border-radius: 10px;
+  background:#EFEEEE;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 16px;
+  text-align: center;
 }
 
 .display-name {
@@ -88,4 +231,5 @@ export default {
     }
   }
 }
+
 </style>
