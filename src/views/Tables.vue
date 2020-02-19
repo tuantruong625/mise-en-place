@@ -1,7 +1,6 @@
 <template>
   <section class="table-container">
     <h1>Tables</h1>
-
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
       <h3 slot="header">Set your display name</h3>
       <div slot="body" class="display-name__body">
@@ -20,6 +19,7 @@
 <script>
 import firebase from 'firebase';
 import Modal from '@/components/Modal';
+import { avatarImagesURL } from '@/assets/avatar-images.js';
 
 export default {
   components: {
@@ -32,13 +32,26 @@ export default {
       showModal: true,
     };
   },
+  computed: {
+    randomAvatarImage() {
+      return avatarImagesURL[Math.floor(Math.random() * avatarImagesURL.length)];
+    },
+  },
   methods: {
     addUsername() {
       this.user.updateProfile({
         displayName: this.displayName,
+        photoURL: this.randomAvatarImage,
       });
 
-      this.$emit('set-display-name', this.displayName);
+      this.user.photoURL = this.randomAvatarImage;
+
+      const userData = {
+        displayName: this.displayName,
+        photoURL: this.user.photoURL,
+      };
+
+      this.$emit('set-display-name', userData);
       this.showModal = false;
     },
   },
@@ -77,7 +90,7 @@ export default {
     }
 
     &--button {
-      background: #74C0FC;
+      background: #282E72;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
       border-radius: 20px;
