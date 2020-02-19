@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <nav class="nav">
-      <img class="nav__logo" src="../assets/logo.png" alt="">
+      <img class="nav__logo" src="../assets/MPicon_blue.svg" alt="Logo">
 
       <div class="nav__links">
         <router-link to="/tables"><img class="nav__icon" src="../assets/chair-solid.svg" alt=""></router-link>
@@ -9,7 +9,7 @@
       </div>
 
       <div class="nav__profile">
-        <img class="nav__profile--avatar-image" :src="user.photoURL" alt="Avatar Image">
+        <img class="nav__profile--avatar-image" :src="avatarImage" alt="Avatar Image">
         {{ user.displayName }} |
         <button class="nav__sign-out-btn" @click="signout">Logout</button>
       </div>
@@ -21,6 +21,8 @@
 
 <script>
 import firebase from 'firebase';
+import { avatarImagesURL } from '@/assets/avatar-images.js';
+
 export default {
   data() {
     return {
@@ -29,6 +31,14 @@ export default {
   },
   created() {
     this.user = firebase.auth().currentUser;
+  },
+  computed: {
+    avatarImage() {
+      return this.user.photoURL || this.randomAvatarImage;
+    },
+    randomAvatarImage() {
+      return avatarImagesURL[Math.floor(Math.random() * avatarImagesURL.length)];
+    },
   },
   methods: {
     signout(e) {
@@ -72,7 +82,7 @@ export default {
       width: 2rem;
       margin-right: 0.5rem;
       border-radius: 50%;
-      border: 2px solid #74C0FC;
+      border: 2px solid #282E72;
       box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
     }
   }
@@ -80,7 +90,7 @@ export default {
   &__sign-out-btn {
     background: none;
     border: none;
-    color: #74C0FC;
+    color: #282E72;
   }
 }
 </style>

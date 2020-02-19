@@ -1,7 +1,6 @@
 <template>
   <section class="table-container">
     <h1>Tables</h1>
-    {{ randomAvatarImage }}
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
       <h3 slot="header">Set your display name</h3>
       <div slot="body" class="display-name__body">
@@ -91,7 +90,7 @@ export default {
     }
 
     &--button {
-      background: #74C0FC;
+      background: #282E72;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
       border-radius: 20px;
