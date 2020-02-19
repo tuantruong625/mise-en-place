@@ -10,7 +10,6 @@
           <input class="display-name__body--input" type="text" name="display-name" id="display-name" v-model="displayName">
         </label>
         <button class="display-name__body--button" @click="addUsername">Set</button>
-
       </div>
     </modal>
   </section>
@@ -46,12 +45,12 @@ export default {
 
       this.user.photoURL = this.randomAvatarImage;
 
-      const userData = {
+      const profileData = {
         displayName: this.displayName,
         photoURL: this.user.photoURL,
       };
 
-      this.$emit('set-display-name', userData);
+      this.$emit('set-profile-data', profileData);
       this.showModal = false;
     },
   },

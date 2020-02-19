@@ -1,7 +1,10 @@
 <template>
   <div class="home">
     <nav class="nav">
-      <img class="nav__logo" src="../assets/MPicon_blue.svg" alt="Logo">
+      <div class="nav__logo">
+        <img class="nav__logo--image" src="../assets/MPicon_blue.svg" alt="Logo">
+        <span class="nav__logo--text">Mise en place</span>
+      </div>
 
       <div class="nav__links">
         <router-link to="/tables"><img class="nav__icon" src="../assets/chair-solid.svg" alt=""></router-link>
@@ -10,12 +13,12 @@
 
       <div class="nav__profile">
         <img class="nav__profile--avatar-image" :src="avatarImage" alt="Avatar Image">
-        {{ user.displayName }} |
+        <span class="nav__profile--display-name">{{ user.displayName }} |</span>
         <button class="nav__sign-out-btn" @click="signout">Logout</button>
       </div>
     </nav>
 
-    <router-view @set-display-name="setDisplayName"/>
+    <router-view @set-profile-data="setProfileData"/>
   </div>
 </template>
 
@@ -48,7 +51,7 @@ export default {
       }).catch(err => {});
 
     },
-    setDisplayName(profileData) {
+    setProfileData(profileData) {
       this.user.displayName = profileData.displayName;
       this.user.photoURL = profileData.photoURL;
     },
@@ -70,13 +73,29 @@ export default {
   }
 
   &__logo {
-    width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--image {
+      width: 4rem;
+    }
+
+    &--text {
+      margin-left: 0.5rem;
+      font-size: 1.25rem;
+    }
   }
 
   &__profile {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &--display-name {
+      font-size: 1.25rem;
+      text-transform: capitalize;
+    }
 
     &--avatar-image {
       width: 2rem;
