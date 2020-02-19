@@ -8,7 +8,8 @@
         <router-link to="/menu"><img class="nav__icon" src="../assets/utensils-solid.svg" alt=""></router-link>
       </div>
 
-      <div>
+      <div class="nav__profile">
+        <img class="nav__profile--avatar-image" :src="user.photoURL" alt="Avatar Image">
         {{ user.displayName }} |
         <button class="nav__sign-out-btn" @click="signout">Logout</button>
       </div>
@@ -37,8 +38,9 @@ export default {
       }).catch(err => {});
 
     },
-    setDisplayName(displayName) {
-      this.user.displayName = displayName;
+    setDisplayName(profileData) {
+      this.user.displayName = profileData.displayName;
+      this.user.photoURL = profileData.photoURL;
     },
   },
 };
@@ -59,6 +61,20 @@ export default {
 
   &__logo {
     width: 4rem;
+  }
+
+  &__profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--avatar-image {
+      width: 2rem;
+      margin-right: 0.5rem;
+      border-radius: 50%;
+      border: 2px solid #74C0FC;
+      box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    }
   }
 
   &__sign-out-btn {
