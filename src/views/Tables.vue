@@ -16,8 +16,8 @@
     </div>
     <modal v-if="tableModal" @close="tableModal = false">
       <h3 slot="header">Would you like to remove yourself from the table?</h3>
-      <div slot="body" class="display-name__body">
-        <button class="display-name__body--button" @click="removeHost()">Confirm</button>
+      <div slot="body" class="display-name__body" >
+        <button class="display-name__body--confirm" @click="removeHost()">Confirm</button>
       </div>
     </modal>  
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
@@ -66,16 +66,10 @@ export default {
   },
   methods: {
     tableCount(){
-      this.occupiedTables =  0;
-      this.emptyTables = 0;
-      for (var i=0; i<this.tables.length; i++){
-        if (this.tables[i].isOpen == true){
-          this.emptyTables++;
-        }
-        else if (this.tables[i].isOpen == false){
-          this.occupiedTables++;
-        }
-      }
+      const emptyTablesCount = this.tables.filter(table => table.isOpen).length;
+      const occupiedTablesCount = this.tables.filter(table => !table.isOpen).length;
+      this.occupiedTables =  occupiedTablesCount;
+      this.emptyTables = emptyTablesCount;
     },
     removeHost(){
       this.tableModal = false;
@@ -158,12 +152,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+b{
+  font-family: Roboto Slab;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
+  /* identical to box height */
+
+
+  color: #495057;
+}
 h1 {
-  font-size: 3em;
+  font-family: Roboto Slab;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
   text-align: center;
 }
 h3 {
-  font-size: 2em;
+  font-family: Roboto Slab;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  color: #495057;
   text-align: center;
 }
 .red-dot{
@@ -172,6 +186,7 @@ h3 {
   background-color: red;
   border-radius: 50%;
   display: inline-block;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.7), inset -2px -2px 4px rgba(174, 174, 192, 0.2);
 }
 .green-dot{
   height: 25px;
@@ -179,6 +194,7 @@ h3 {
   background-color: green;
   border-radius: 50%;
   display: inline-block;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.7), inset -2px -2px 4px rgba(174, 174, 192, 0.2);
 }
 .column {
   float: left;
@@ -207,11 +223,10 @@ h3 {
 
 .table {
   height: 100px;
-  display: block;
+  background: #EFEEEE;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
   border-radius: 10px;
-  background:#EFEEEE;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 16px;
   text-align: center;
 }
 
@@ -245,6 +260,15 @@ h3 {
       height: 3.25rem;
       color: #fff;
       margin: 1rem 0;
+    }
+
+    &--confirm {
+      width: 140px;
+      height: 41px;
+      background: #74C0FC;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
     }
   }
 }
