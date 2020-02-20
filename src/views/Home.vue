@@ -1,25 +1,31 @@
 <template>
   <div class="home">
     <nav class="nav">
-      <img class="nav__logo" src="../assets/logo.png" alt="">
+      <div class="nav__logo">
+        <img class="nav__logo--image" src="../assets/MPicon_blue.svg" alt="Logo">
+        <span class="nav__logo--text">Mise en place</span>
+      </div>
 
       <div class="nav__links">
         <router-link to="/tables"><img class="nav__icon" src="../assets/chair-solid.svg" alt=""></router-link>
         <router-link to="/menu"><img class="nav__icon" src="../assets/utensils-solid.svg" alt=""></router-link>
       </div>
 
-      <div>
-        {{ user.displayName }} |
+      <div class="nav__profile">
+        <img class="nav__profile--avatar-image" :src="avatarImage" alt="Avatar Image">
+        <span class="nav__profile--display-name">{{ user.displayName }} |</span>
         <button class="nav__sign-out-btn" @click="signout">Logout</button>
       </div>
     </nav>
 
-    <router-view @set-display-name="setDisplayName"/>
+    <router-view @set-profile-data="setProfileData"/>
   </div>
 </template>
 
 <script>
 import firebase from 'firebase';
+import { avatarImagesURL } from '@/assets/avatar-images.js';
+
 export default {
   data() {
     return {
@@ -29,6 +35,14 @@ export default {
   created() {
     this.user = firebase.auth().currentUser;
   },
+  computed: {
+    avatarImage() {
+      return this.user.photoURL || this.randomAvatarImage;
+    },
+    randomAvatarImage() {
+      return avatarImagesURL[Math.floor(Math.random() * avatarImagesURL.length)];
+    },
+  },
   methods: {
     signout(e) {
       e.stopPropagation();
@@ -37,8 +51,9 @@ export default {
       }).catch(err => {});
 
     },
-    setDisplayName(displayName) {
-      this.user.displayName = displayName;
+    setProfileData(profileData) {
+      this.user.displayName = profileData.displayName;
+      this.user.photoURL = profileData.photoURL;
     },
   },
 };
@@ -58,13 +73,43 @@ export default {
   }
 
   &__logo {
-    width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--image {
+      width: 4rem;
+    }
+
+    &--text {
+      margin-left: 0.5rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  &__profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--display-name {
+      font-size: 1.25rem;
+      text-transform: capitalize;
+    }
+
+    &--avatar-image {
+      width: 2rem;
+      margin-right: 0.5rem;
+      border-radius: 50%;
+      border: 2px solid #282E72;
+      box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    }
   }
 
   &__sign-out-btn {
     background: none;
     border: none;
-    color: #74C0FC;
+    color: #282E72;
   }
 }
 </style>
