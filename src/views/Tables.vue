@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       user: null,
-      displayName: null,
+      displayName: '',
       showModal: true,
       tableModal: false,
       tables: [],
@@ -88,6 +88,9 @@ export default {
       this.tableId = '';
     },
     hostTable(tableId, serverName){
+      if (serverName == null){
+        serverName = '';
+      }
       if (this.tableId == ''){
         this.toggleTable = false;
         this.tableId = tableId;
@@ -111,9 +114,15 @@ export default {
       this.tableCount();
     },
     addUsername() {
-      this.user.updateProfile({
-        displayName: this.displayName,
-      });
+      if (this.user.displayName==null){
+        this.displayName = '';
+      }
+      else {
+        this.user.updateProfile({
+          displayName: this.displayName,
+        });
+      }
+      
       this.$emit('set-display-name', this.displayName);
       this.showModal = false;
     },
