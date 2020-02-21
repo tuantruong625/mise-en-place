@@ -1,7 +1,7 @@
 <template>
   <div class="sign-in">
     <section class="sign-in__form">
-      <img class="sign-in__header--logo" src="../assets/logo.png" alt="">
+      <img class="sign-in__header--logo" src="../assets/MPicon_blue.svg" alt="Logo">
 
       <header class="sign-in__header">
         <h1>Mise en Place</h1>
@@ -121,10 +121,10 @@ export default {
         align-items: center;
         font-size: 2rem;
         z-index: 1;
-        width: 10rem;
+        width: 12rem;
         position: absolute;
-        top: calc(50% - 18.5rem);
-        left: calc(50% - 5.25rem);
+        top: calc(50% - 19.25rem);
+        left: calc(50% - 6.25rem);
 
         img {
           margin-right: 1rem;
@@ -179,7 +179,7 @@ export default {
 
       button {
         grid-area: sign-in-button;
-        background: #74C0FC;
+        background: #282E72;
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
         border-radius: 20px;
@@ -196,7 +196,7 @@ export default {
       margin-top: 0.5rem;
       margin-bottom: 2rem;
       a {
-        color: #74C0FC;
+        color: #282E72;
         text-decoration: none;
       }
 

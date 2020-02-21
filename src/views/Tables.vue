@@ -30,7 +30,6 @@
           <input class="display-name__body--input" type="text" name="display-name" id="display-name" v-model="displayName">
         </label>
         <button class="display-name__body--button" @click="addUsername">Set</button>
-
       </div>
     </modal>
   </section>
@@ -39,6 +38,7 @@
 <script>
 import firebase from 'firebase';
 import Modal from '@/components/Modal';
+import { avatarImagesURL } from '@/assets/avatar-images.js';
 
 export default {
   components: {
@@ -59,6 +59,11 @@ export default {
       toggleName: '',
       tableId: '',
     };
+  },
+  computed: {
+    randomAvatarImage() {
+      return avatarImagesURL[Math.floor(Math.random() * avatarImagesURL.length)];
+    },
   },
   methods: {
     tableCount(){
@@ -107,8 +112,17 @@ export default {
     addUsername() {
       this.user.updateProfile({
         displayName: this.displayName,
+        photoURL: this.randomAvatarImage,
       });
-      this.$emit('set-display-name', this.displayName);
+
+      this.user.photoURL = this.randomAvatarImage;
+
+      const profileData = {
+        displayName: this.displayName,
+        photoURL: this.user.photoURL,
+      };
+
+      this.$emit('set-profile-data', profileData);
       this.showModal = false;
     },
     async getTables() {
@@ -214,7 +228,7 @@ h3 {
     }
 
     &--button {
-      background: #74C0FC;
+      background: #282E72;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
       border-radius: 20px;
