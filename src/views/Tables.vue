@@ -62,16 +62,10 @@ export default {
   },
   methods: {
     tableCount(){
-      this.occupiedTables =  0;
-      this.emptyTables = 0;
-      for (var i=0; i<this.tables.length; i++){
-        if (this.tables[i].isOpen == true){
-          this.emptyTables++;
-        }
-        else if (this.tables[i].isOpen == false){
-          this.occupiedTables++;
-        }
-      }
+      const emptyTablesCount = this.tables.filter(table => table.isOpen).length;
+      const occupiedTablesCount = this.tables.filter(table => !table.isOpen).length;
+      this.occupiedTables =  occupiedTablesCount;
+      this.emptyTables = emptyTablesCount;
     },
     removeHost(){
       this.tableModal = false;
