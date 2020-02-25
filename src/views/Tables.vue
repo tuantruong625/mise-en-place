@@ -5,7 +5,7 @@
     <h3>occupied tables: <b style="color: red;">{{ occupiedTables }}</b> | empty tables: <b  style="color: green">{{ emptyTables }}</b></h3> 
     <br>
     <div class="column" v-for="table in tables" :key="table.id">
-      <div class="table"  @click="hostTable(table.id, user.displayName)">
+      <div class="table"  @click="updateTable(table.id, user.displayName)">
         <div>
           <span v-if="table.isOpen" class="green-dot" />
           <span v-else class="red-dot" />
@@ -86,7 +86,7 @@ export default {
       this.tableCount();
       this.tableId = '';
     },
-    hostTable(tableId, serverName){
+    updateTable(tableId, serverName){
       if (this.tableId == ''){
         this.toggleTable = false;
         this.tableId = tableId;
@@ -137,6 +137,8 @@ export default {
           this.tables.push(table);
         });
         this.tableCount();
+        // eslint-disable-next-line no-console
+        console.log(this.tables);
       });
     },
   },
