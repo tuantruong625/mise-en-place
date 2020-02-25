@@ -98,15 +98,18 @@ export default {
   }
 
   .menu-item-container {
-    margin: 1rem;
+    margin: 1rem 5rem;
     display: grid;
-    grid-template-areas:
-    "header header header";
+    grid-gap: 1.5rem;
+    justify-items: center;
+    grid-template-columns: auto auto auto;
+    // grid-template-areas: "header header header";
 
     &__title {
       margin-right: auto;
       font-size: 1.25rem;
-      grid-area: header;
+      grid-column: 1 / span 3;
+      // grid-area: header;
     }
   }
 
@@ -114,21 +117,20 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 1rem;
-    padding: 0 1rem;
     background: #EFEEEE;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
     border-radius: 10px;
-    width: 250px;
+    width: 100%;
     height: 60px;
 
     &__name {
+      margin-left: 1rem;
       text-transform: capitalize;
     }
 
     &__price {
-
+      margin-right: 1rem;
     }
 
   }
