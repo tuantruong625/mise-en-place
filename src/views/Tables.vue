@@ -67,10 +67,6 @@ export default {
   },
   methods: {
     tableCount(){
-      
-      
-      
-      
       const emptyTablesCount = this.tables.filter(table => table.isOpen).length;
       const occupiedTablesCount = this.tables.filter(table => !table.isOpen).length;
       this.occupiedTables =  occupiedTablesCount;
