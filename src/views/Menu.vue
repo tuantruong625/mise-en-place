@@ -4,20 +4,31 @@
       <h1 class="menu-header__title">Menu</h1>
 
       <nav class="menu-nav">
-        <span class="menu-nav__link">Food</span>
-        <span class="menu-nav__link">Drink</span>
+        <span class="menu-nav__link"><a href="#food" @click="showFood = true, showDrink = false">Food</a></span>
+        <span class="menu-nav__link"><a href="#drinks" @click="showDrink = true, showFood = false">Drink</a></span>
       </nav>
     </header>
+    <div v-show="showFood">
+      <ul class="menu-item-container" v-for="menu in restaurant.menu" :key="menu.id">
+        <li class="menu-item-container__title">{{ menu.title }}</li>
 
-    <ul class="menu-item-container" v-for="menu in restaurant.menu" :key="menu.id">
-      <li class="menu-item-container__title">{{ menu.title }}</li>
+        <li class="menu-item-card" v-for="item in menu.menuItems" :key="item.id">
+          <span class="menu-item-card__name">{{ item.name }}</span>
+          <span class="menu-item-card__price">${{ item.price }}</span>
+        </li>
+      </ul>
+    </div>
 
-      <li class="menu-item-card" v-for="item in menu.menuItems" :key="item.id">
-        <span class="menu-item-card__name">{{ item.name }}</span>
-        <span class="menu-item-card__price">${{ item.price }}</span>
-      </li>
-    </ul>
+    <div v-show="showDrink">
+      <ul class="menu-item-container" v-for="menu in drinks.menu" :key="menu.id">
+        <li class="menu-item-container__title">{{ menu.title }}</li>
 
+        <li class="menu-item-card" v-for="item in menu.menuItems" :key="item.id">
+          <span class="menu-item-card__name">{{ item.name }}</span>
+          <span class="menu-item-card__price">${{ item.price }}</span>
+        </li>
+      </ul>
+    </div>
   </section>
 </template>
 
@@ -28,6 +39,9 @@ export default {
   data() {
     return {
       restaurant: {},
+      showFood: true,
+      showDrink: false,
+      drinks: {},
     };
   },
   methods: {
@@ -60,10 +74,37 @@ export default {
       }
       return restaurant;
     },
+    async getDrinkData(drinkId){
+      let drinks = {};
+
+      const resRef = firebase.firestore().collection('restaurants');
+      const resSnap = await resRef.doc(drinkId).get();
+      drinks = resSnap.data();
+      drinks.id = resSnap.id;
+
+      const menuTypesSnap = await resRef
+        .doc(drinkId).collection('menuTypes').get();
+      drinks.menu = [];
+      for (const menuTypeObj of menuTypesSnap.docs){
+        const menuType = menuTypeObj.data();
+        menuType['menuItems'] = [];
+
+        const menuItemsSnap = await menuTypeObj.ref
+          .collection('menuItems').get();
+        for (const menuItem of menuItemsSnap.docs){
+          menuType['menuItems'].push(menuItem.data());
+        }
+        drinks.menu.push(menuType);
+      }
+      return drinks;
+    },
   },
   created() {
     this.getRestaurantData('foodMenu').then(response => {
       this.restaurant = response;
+    });
+    this.getDrinkData('drinkMenu').then(response => {
+      this.drinks = response;
     });
   },
 };
@@ -98,18 +139,15 @@ export default {
   }
 
   .menu-item-container {
-    margin: 1rem 5rem;
+    margin: 1rem;
     display: grid;
-    grid-gap: 1.5rem;
-    justify-items: center;
-    grid-template-columns: auto auto auto;
-    // grid-template-areas: "header header header";
+    grid-template-areas:
+    "header header header";
 
     &__title {
       margin-right: auto;
       font-size: 1.25rem;
-      grid-column: 1 / span 3;
-      // grid-area: header;
+      grid-area: header;
     }
   }
 
@@ -117,20 +155,21 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 1rem;
+    padding: 0 1rem;
     background: #EFEEEE;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
     border-radius: 10px;
-    width: 100%;
+    width: 250px;
     height: 60px;
 
     &__name {
-      margin-left: 1rem;
       text-transform: capitalize;
     }
 
     &__price {
-      margin-right: 1rem;
+
     }
 
   }
