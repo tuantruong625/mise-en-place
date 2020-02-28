@@ -187,7 +187,7 @@ export default {
         grid-area: sign-in-button;
         background: #282E72;
         border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         border-radius: 20px;
         width: 16.5rem;
         height: 3.25rem;
@@ -195,9 +195,14 @@ export default {
         margin-top: 0.5rem;
         margin-bottom: 2rem;
 
+        &:hover {
+          box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
+
         &:disabled {
           background: #282E72;
-          opacity: 75%;
+          opacity: 55%;
+          color: #f8f9fa;
         }
       }
     }
