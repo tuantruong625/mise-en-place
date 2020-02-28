@@ -29,7 +29,7 @@
           <span>Display Name</span>
           <input class="display-name__body--input" type="text" name="display-name" id="display-name" v-model="displayName">
         </label>
-        <button class="display-name__body--button" @click="addUsername">Set</button>
+        <button class="display-name__body--button" :disabled="!displayName" @click="addUsername">Set</button>
       </div>
     </modal>
   </section>
@@ -236,6 +236,11 @@ h3 {
       height: 3.25rem;
       color: #fff;
       margin: 1rem 0;
+
+      &:disabled {
+        background: #282E72;
+        opacity: 75%;  
+      }
     }
   }
 }
