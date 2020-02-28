@@ -26,10 +26,10 @@
 
       <span class="sign-in__link">
         Don't have an account?
-        <router-link to="/sign-up">Sign up here</router-link>
+        <router-link to="/sign-up">Sign up here.</router-link>
       </span>
 
-      <button data-test="signInButton" @click="signin">Sign in</button>
+      <button data-test="signInButton" :disabled="!canSignIn" @click="signin">Sign in</button>
     </section>
   </div>
 </template>
@@ -45,6 +45,11 @@ export default {
       passwordErrorMessage: '',
       errorCode: null,
     };
+  },
+  computed: {
+    canSignIn() {
+      return this.email && this.password;
+    },
   },
   watch : {
     errorCode(errorCode) {
@@ -94,6 +99,7 @@ export default {
     background: #FFF;
     height: 100vh;
     color: #495057;
+    background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%2376c9ba' fill-opacity='0.1'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 
     &__error-message {
       color: #f03e3e;
@@ -188,6 +194,11 @@ export default {
         color: #fff;
         margin-top: 0.5rem;
         margin-bottom: 2rem;
+
+        &:disabled {
+          background: #282E72;
+          opacity: 75%;
+        }
       }
     }
 
