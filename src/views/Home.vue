@@ -17,7 +17,6 @@
         <button class="nav__sign-out-btn" @click="signout">Logout</button>
       </div>
     </nav>
-
     <router-view @set-profile-data="setProfileData"/>
   </div>
 </template>
@@ -64,8 +63,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   background: #fff;
-  padding: 1rem;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  position: fixed;
+  top: 0;
+  width: 100%;
 
   &__icon {
     width: 1.5rem;
@@ -76,6 +77,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
 
     &--image {
       width: 4rem;
@@ -91,6 +93,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
 
     &--display-name {
       font-size: 1.25rem;
