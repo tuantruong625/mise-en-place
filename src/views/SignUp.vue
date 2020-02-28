@@ -37,7 +37,7 @@
         <router-link to="/sign-in">Back</router-link>
       </span>
 
-      <button data-test="signUpButton" @click="signUp">Create Account</button>
+      <button data-test="signUpButton" @click="signUp" :disabled="!canSignUp">Create Account</button>
     </section>
   </div>
 </template>
@@ -56,6 +56,11 @@ export default {
       passwordErrorMessage: '',
       confirmPasswordErrorMessage: '',
     };
+  },
+  computed: {
+    canSignUp() {
+      return this.email && this.password && this.confirmPassword;
+    },
   },
   watch : {
     errorCode(errorCode) {
@@ -200,6 +205,11 @@ export default {
         color: #fff;
         margin-top: 2rem;
         margin-bottom: 2rem;
+
+        &:disabled {
+          background: #282E72;
+          opacity: 75%;
+        }
       }
     }
 
