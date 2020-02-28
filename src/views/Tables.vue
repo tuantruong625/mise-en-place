@@ -160,16 +160,17 @@ h3 {
   text-align: center;
 }
 .red-dot{
-  height: 25px;
-  width: 25px;
-  background-color: red;
+  position: relative;
+  height: 20px;
+  width: 20px;
+  background-color: #FE7373;
   border-radius: 50%;
   display: inline-block;
 }
 .green-dot{
-  height: 25px;
-  width: 25px;
-  background-color: green;
+  height: 20px;
+  width: 20px;
+  background-color: #2F9E44;
   border-radius: 50%;
   display: inline-block;
 }
@@ -206,6 +207,20 @@ h3 {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 16px;
   text-align: center;
+  position: relative;
+  z-index: 1;
+  &::before {
+    content: '';
+    width: 32px;
+    height: 32px;
+    background: #F0F0F3;
+    box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.7), inset -2px -2px 4px rgba(174, 174, 192, 0.2);
+    border-radius: 50%;
+    position: absolute;
+    z-index: -1;
+    left: 98.5px;
+    top: 10px;
+  }
 }
 
 .display-name {
