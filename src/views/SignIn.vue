@@ -5,7 +5,7 @@
 
       <header class="sign-in__header">
         <h1>Mise en Place</h1>
-        <p>Sign into your account.</p>
+        <p>Sign into your account</p>
       </header>
 
       <div class="sign-in__form--container">
