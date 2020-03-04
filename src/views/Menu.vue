@@ -8,10 +8,15 @@
         <span class="menu-nav__link"><a href="#drinks" @click="showDrink = true, showFood = false">Drink</a></span>
       </nav>
     </header>
-    <div v-show="showFood">
-      <ul class="menu-item-container" v-for="menu in restaurant.menu" :key="menu.id">
-        <li class="menu-item-container__title">{{ menu.title }}</li>
 
+    <div v-show="showFood" class="food-header">
+      <span v-for="menu in restaurant.menu" :key="menu.id">
+        <span class="food-header__link" :class="{ active: activeHeader(menu.title) }" @click="selectedHeader(menu.title)">{{ menu.title }}</span>
+      </span>
+    </div>
+
+    <div v-show="showFood">
+      <ul class="menu-item-container" v-for="menu in filteredList" :key="menu.id">
         <li class="menu-item-card" v-for="item in menu.menuItems" :key="item.id">
           <span class="menu-item-card__name">{{ item.name }}</span>
           <span class="menu-item-card__price">${{ item.price }}</span>
@@ -19,10 +24,14 @@
       </ul>
     </div>
 
-    <div v-show="showDrink">
-      <ul class="menu-item-container" v-for="menu in drinks.menu" :key="menu.id">
-        <li class="menu-item-container__title">{{ menu.title }}</li>
+    <div v-show="showDrink" class="food-header">
+      <span v-for="menu in drinks.menu" :key="menu.id">
+        <span class="food-header__link" :class="{ active: activeHeader(menu.title) }" @click="selectedHeader(menu.title)">{{ menu.title }}</span>
+      </span>
+    </div> 
 
+    <div v-show="showDrink">
+      <ul class="menu-item-container" v-for="menu in filteredDrinkList" :key="menu.id">
         <li class="menu-item-card" v-for="item in menu.menuItems" :key="item.id">
           <span class="menu-item-card__name">{{ item.name }}</span>
           <span class="menu-item-card__price">${{ item.price }}</span>
@@ -34,17 +43,54 @@
 
 <script>
 import firebase from 'firebase';
+import { pickBy } from 'lodash';
+
 export default {
   name: 'Menu',
   data() {
     return {
+      user: null,
       restaurant: {},
       showFood: true,
       showDrink: false,
       drinks: {},
+      search: 'Appetizers',
     };
   },
+  watch: {
+    showDrink(value) {
+      if (value) {
+        this.search = 'Beer Pint';
+      }
+    },
+    showFood(value) {
+      if (value) {
+        this.search = 'Appetizers';
+      }
+    },
+  },
+  computed: {
+    filteredList() {
+      return pickBy(this.restaurant.menu, (value, key) => {
+        return value.title === this.search;
+      });
+    },
+    filteredDrinkList(){
+      return pickBy(this.drinks.menu, (value, key) => {
+        return value.title === this.search;
+      });
+    },
+    defaultCategory() {
+      return this.showFood ? 'Appetizers' : 'Beer Pint';
+    },
+  },
   methods: {
+    selectedHeader(header) {
+      this.search = header;
+    },
+    activeHeader(header) {
+      return this.search === header;
+    },
     async getRestaurantData(resId) {
       let restaurant = {};
 
@@ -106,6 +152,7 @@ export default {
     this.getDrinkData('drinkMenu').then(response => {
       this.drinks = response;
     });
+    this.user = firebase.auth().currentUser;
   },
 };
 </script>
@@ -168,9 +215,21 @@ export default {
     &__name {
       text-transform: capitalize;
     }
+  }
 
-    &__price {
+  .food-header {
+    display: flex;
+    justify-content: space-around;
 
+    &__link {
+      font-size: 1.25rem;
+      color: #868e96;
+      cursor: pointer;
     }
+  }
+
+  .active {
+    text-decoration: underline #76c9ba;
+    color: #495057;
   }
 </style>
