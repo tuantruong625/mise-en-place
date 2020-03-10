@@ -14,12 +14,12 @@
         <div>{{ table.serverId }}</div>
       </div>
     </div>
-    <modal v-if="tableModal" @close="tableModal = false">
+    <!-- <modal v-if="tableModal" @close="tableModal = false">
       <h3 slot="header">Would you like to remove yourself from the table?</h3>
       <div slot="body" class="display-name__body">
         <button class="display-name__body--button" @click="removeHost()">Confirm</button>
       </div>
-    </modal>  
+    </modal>   -->
 
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
       <h3 slot="header">Set your display name</h3>
@@ -92,7 +92,8 @@ export default {
         this.tableId = tableId;
       }
       else if (this.tableId == tableId){
-        this.tableModal = true;
+        //this.tableModal = true;
+        this.$router.push({ path: '/menu', query: { tableId } });
       } 
       else {
         this.tableId = tableId;

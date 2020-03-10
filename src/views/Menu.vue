@@ -2,6 +2,7 @@
   <section class="menu-container">
     <header class="menu-header">
       <h1 class="menu-header__title">Menu</h1>
+      <h1>{{ tableId }}  HELLOOOOO</h1>
 
       <nav class="menu-nav">
         <span class="menu-nav__link"><a href="#food" @click="showFood = true, showDrink = false">Food</a></span>
@@ -67,6 +68,7 @@ export default {
       search: 'Appetizers',
       isHighlighted: false,
       order: [],
+      tableId: this.$route.query.tableId.toString(),
     };
   },
   watch: {
