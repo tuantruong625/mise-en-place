@@ -39,6 +39,7 @@
 import firebase from 'firebase';
 import Modal from '@/components/Modal';
 import { avatarImagesURL } from '@/assets/avatar-images.js';
+import { pickBy } from 'lodash';
 
 export default {
   components: {
@@ -86,7 +87,7 @@ export default {
       this.tableCount();
       this.tableId = '';
     },
-    hostTable(tableId, serverName){
+    hostTable(tableId, userId){
       if (this.tableId == ''){
         this.toggleTable = false;
         this.tableId = tableId;
@@ -106,8 +107,15 @@ export default {
         .doc(tableId)
         .update({
           isOpen: this.toggleTable,
-          serverId: serverName,
+          serverId: userId,
         });
+      if (this.user != null) {
+        this.user.providerData.forEach(function(userId) {
+          // eslint-disable-next-line no-console
+          console.log(userId); 
+          
+        });
+      }
       this.tableCount();
     },
     addUsername() {
@@ -144,6 +152,8 @@ export default {
 
   created() {
     this.user = firebase.auth().currentUser;
+    // eslint-disable-next-line no-console
+    console.log(this.user);
     this.getTables();
   },
 };

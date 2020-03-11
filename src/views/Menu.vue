@@ -19,7 +19,7 @@
 
       <ul v-show="showFood" class="menu-item-wrapper" v-for="menu in filteredList" :key="menu.id">
         <li class="menu-item-wrapper__card" v-for="item in menu.menuItems" :key="item.id" @click="highlighted(item)">
-          <span class="menu-item-wrapper__card--name">{{ item.name }}</span>
+          <span class="menu-item-wrapper__card--name" >{{ item.name }}</span>
           <span class="menu-item-wrapper__card--price">${{ item.price }}</span>
         </li>
       </ul>
@@ -42,12 +42,16 @@
         <span class="action-button quantity">0</span>
         <button class="action-button decrement-button">-</button>
         <button class="action-button modification-button">Modification</button>
-        <button class="action-button add-button">Add</button>
+        <button class="action-button add-button" :disabled="addButton">Add</button>
       </div>
     </main>
 
     <aside class="menu-order">
       <h2>Order Number #12312</h2>
+      <ul v-for="item in order" :key="item.id">
+        <li><span class="menu-item-wrapper__card--name">{{ item.name }}</span>
+          <span class="menu-item-wrapper__card--price">${{ item.price }}</span></li>
+      </ul>
     </aside>
   </section>
 </template>
@@ -67,8 +71,11 @@ export default {
       drinks: {},
       search: 'Appetizers',
       isHighlighted: false,
+      picked: [],
       order: [],
       tableId: this.$route.query.tableId.toString(),
+      totalCost: 0,
+      addButton: false,
     };
   },
   watch: {
@@ -100,10 +107,18 @@ export default {
   },
   methods: {
     highlighted(item) {
-    
+      this.picked.pop();
+      this.picked.push(item);
+      // firebase
+      //   .firestore()
+      //   .collection('tables')
+      //   .doc(this.tableId)
+      //   .update({
+      //     order: item,
+      //   });
     },
     addToOrder(item) {
-      this.order.push(item);
+      this.order.push(item);  
     },
     selectedHeader(header) {
       this.search = header;
