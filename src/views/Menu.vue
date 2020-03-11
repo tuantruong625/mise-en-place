@@ -31,7 +31,7 @@
       </div> 
 
       <ul v-show="showDrink" class="menu-item-wrapper" v-for="menu in filteredDrinkList" :key="menu.id">
-        <li class="menu-item-wrapper__card" v-for="item in menu.menuItems" :key="item.id">
+        <li class="menu-item-wrapper__card" v-for="item in menu.menuItems" :key="item.id" @click="highlighted(item)" :class="{ 'highlighted' : item.isHighlighted  }">
           <span class="menu-item-wrapper__card--name">{{ item.name }}</span>
           <span class="menu-item-wrapper__card--price">${{ item.price }}</span>
         </li>
@@ -80,7 +80,7 @@ export default {
   watch: {
     showDrink(value) {
       if (value) {
-        this.search = 'Beer Pint';
+        this.search = 'Bottled Beer';
       }
     },
     showFood(value) {
@@ -106,7 +106,9 @@ export default {
   },
   methods: {
     highlighted(item) {
-      item.isHighlighted = !item.isHighlighted;          
+      item.isHighlighted = !item.isHighlighted;    
+      // eslint-disable-next-line no-console
+      console.log(item);
       this.picked.pop();
       this.picked.push(item);
       // firebase
@@ -264,6 +266,8 @@ export default {
       width: 250px;
       height: 60px;
       border-left: 5px solid transparent;
+      cursor: pointer;
+      user-select: none;
     }
   }
 
