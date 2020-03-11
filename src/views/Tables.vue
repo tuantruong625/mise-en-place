@@ -1,19 +1,26 @@
 <template>
   <section class="table-container">
-    <h1>Main Dining Room</h1>
-    <br>
-    <h3>occupied tables: <b style="color: red;">{{ occupiedTables }}</b> | empty tables: <b  style="color: green">{{ emptyTables }}</b></h3> 
-    <br>
-    <div class="column" v-for="table in tables" :key="table.id">
-      <div class="table"  @click="hostTable(table.id, user.displayName)">
-        <div>
-          <span v-if="table.isOpen" class="green-dot" />
-          <span v-else class="red-dot" />
-          <b>&nbsp;{{ table.id }}</b>
-        </div>
-        <div>{{ table.serverId }}</div>
+    <header class="table-header">
+      <h1 class="table-header__title">Main Dining Room</h1>
+      <p class="table-header__details">
+        Occupied tables: <span class="table-header__details--occupied">{{ occupiedTables }}</span> 
+        | Empty tables: <span class="table-header__details--empty">{{ emptyTables }}</span>
+      </p>
+    </header>
+
+    <main class="table-main">
+      <div class="card" v-for="table in tables" :key="table.id" @click="hostTable(table.id, user.displayName)">
+        <dl class="card-details">
+          <dt :class="{ 'card-details__title-open' : table.isOpen, 'card-details__title-occupied' : !table.isOpen  }">{{ table.id }}</dt>
+          <dd class="card-details__server">
+            <!-- Replace avatarImagePlaceholder with user.photoURL -->
+            <img class="card-details__server--image" :src="avatarImagePlaceholder" alt="Avatar image for servers">
+            {{ table.serverId }}
+          </dd>
+        </dl>
       </div>
-    </div>
+    </main>
+
     <!-- <modal v-if="tableModal" @close="tableModal = false">
       <h3 slot="header">Would you like to remove yourself from the table?</h3>
       <div slot="body" class="display-name__body">
@@ -64,6 +71,9 @@ export default {
   computed: {
     randomAvatarImage() {
       return avatarImagesURL[Math.floor(Math.random() * avatarImagesURL.length)];
+    },
+    avatarImagePlaceholder() {
+      return 'https://firebasestorage.googleapis.com/v0/b/mise-en-place-3331f.appspot.com/o/avatar-images%2F021-beverage.svg?alt=media&token=f95ed5a7-0ee1-4aff-b51f-0315c4356817';
     },
   },
   methods: {
@@ -160,98 +170,176 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  font-size: 3em;
-  text-align: center;
+.table-container {
+  min-height: calc(100vh - 96px);
+  margin-top: 5.8rem;
+  color: #495057;
+  background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%2376c9ba' fill-opacity='0.1'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  display: grid;
+  grid-template-areas: 
+  "header"
+  "table-main";
+  grid-template-rows: 5rem auto;
 }
-h3 {
-  font-size: 2em;
-  text-align: center;
-}
-.red-dot{
-  height: 25px;
-  width: 25px;
-  background-color: red;
-  border-radius: 50%;
-  display: inline-block;
-}
-.green-dot{
-  height: 25px;
-  width: 25px;
-  background-color: green;
-  border-radius: 50%;
-  display: inline-block;
-}
-.column {
-  float: left;
-  width: 25%;
-  padding: 0 10px;
-}
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
+
+.table-header {
+  grid-area: header;
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 1.25rem;
+  }
+
+  &__details {
+    margin-top: 0.5rem;
+    &--occupied {
+      color: #FF6B6B;
+    }
+
+    &--empty {
+      color: #2F9E44;
+    }
   }
 }
 
-/* Clear floats after the columns */
-.table-container:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.table-container {
-    min-height: calc(100vh - 96px);
-    margin-top: 5.8rem;
-    background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%2376c9ba' fill-opacity='0.1'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
-.table {
-  height: 100px;
-  display: block;
+.card {
+  width: 150px;
+  height: 150px;
+  background: #EFEEEE;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
   border-radius: 10px;
-  background:#EFEEEE;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 16px;
-  text-align: center;
+  justify-self: center;
+  align-self: center;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  
+  &__title-open {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-top: auto;
+    
+    &::before {
+      content: '';
+      display: flex;
+      margin-right: 0.25rem;
+      margin-left: -0.16rem;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #F0F0F3;
+      box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.7), inset -2px -2px 4px rgba(174, 174, 192, 0.2);
+    }
+
+    &::after {
+      margin-left: auto;
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #2F9E44;
+    }
+  }
+
+  &__title-occupied {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-top: auto;
+
+    &::before {
+      content: '';
+      display: flex;
+      margin-right: 0.25rem;
+      margin-left: -0.16rem;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #F0F0F3;
+      box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.7), inset -2px -2px 4px rgba(174, 174, 192, 0.2);
+    }
+
+    &::after {
+      margin-left: auto;
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #FE7373;
+    }
+  }
+
+  &__server {
+    display: flex;
+    padding: 0.5rem;
+    align-items: center;
+    text-transform: capitalize;
+    margin-top: auto;
+
+    &--image {
+      width: 1.25rem;
+      margin-right: 0.25rem;
+      border-radius: 100px;
+      border: 1px solid #282E72;
+      box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    }
+    
+  }
+}
+
+.table-main {
+  grid-area: table-main;
+  margin: 0 10rem 5rem 10rem;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
 }
 
 .display-name {
   &__body {
     &--label {
-      display: flex;
-      flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-      span {
-        margin: 0 0 0.5rem 1rem;
-      }
+    span {
+      margin: 0 0 0.5rem 1rem;
     }
+  }
 
-    &--input {
-      background: #f8f9fa;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
-      border-radius: 20px;
-      padding: 1rem 1.5rem;
-      width: 13rem;
-      margin-bottom: 0.5rem;
-    }
+  &--input {
+    background: #f8f9fa;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 1rem 1.5rem;
+    width: 13rem;
+    margin-bottom: 0.5rem;
+  }
 
-    &--button {
-      background: #282E72;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
-      border-radius: 20px;
-      width: 16.5rem;
-      height: 3.25rem;
-      color: #fff;
-      margin: 1rem 0;
-
+  &--button {
+    background: #282E72;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    width: 16.5rem;
+    height: 3.25rem;
+    color: #fff;
+    margin: 1rem 0;
       &:disabled {
         background: #282E72;
-        opacity: 75%;  
+        opacity: 75%; 
       }
     }
   }
