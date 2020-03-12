@@ -2,7 +2,6 @@
   <section class="menu-container">
     <header class="menu-header">
       <h1 class="menu-header__title">Menu</h1>
-      <h1>{{ tableId }}  HELLOOOOO</h1>
 
       <nav class="menu-nav">
         <span class="menu-nav__link"><a href="#food" @click="showFood = true, showDrink = false">Food</a></span>
@@ -70,9 +69,8 @@ export default {
       showDrink: false,
       drinks: {},
       search: 'Appetizers',
-      picked: [],
-      order: {},
-      tableId: this.$route.query.tableId.toString(),
+      order: [],
+      tableId: '',
       totalCost: 0,
       addButton: true,
     };
@@ -107,13 +105,7 @@ export default {
   methods: {
     highlighted(item) {
       item.isHighlighted = !item.isHighlighted;    
-      // eslint-disable-next-line no-console
-      console.log(item);
-      this.picked.pop();
-      this.picked.push(item);
-      // eslint-disable-next-line no-console
-      console.log(this.picked);
-      this.addButton = false;
+      this.order.push(item);
       // firebase
       //   .firestore()
       //   .collection('tables')
@@ -123,7 +115,6 @@ export default {
       //   });
     },
     addToOrder(item) {
-      this.order.push(this.picked);  
       // eslint-disable-next-line no-console
       console.log(this.order);
     },

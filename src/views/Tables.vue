@@ -9,7 +9,7 @@
     </header>
 
     <main class="table-main">
-      <div class="card" v-for="table in tables" :key="table.id" @click="hostTable(table.id, user.displayName)">
+      <div class="card" v-for="table in tables" :key="table.id" @click="hostTable(table.id, user.displayName, table)">
         <dl class="card-details">
           <dt :class="{ 'card-details__title-open' : table.isOpen, 'card-details__title-occupied' : !table.isOpen  }">{{ table.id }}</dt>
           <dd class="card-details__server">
@@ -97,28 +97,31 @@ export default {
       this.tableCount();
       this.tableId = '';
     },
-    hostTable(tableId, userId){
-      if (this.tableId == ''){
-        this.toggleTable = false;
-        this.tableId = tableId;
+    hostTable(tableId, userId, table){
+      const tableIsYours = userId == table.serverId;
+      const tableIsTaken = userId != table.serverId;
+      const tableIsEmpty = table.serverId == '';
+      
+      if (tableIsEmpty){
+        firebase
+          .firestore()
+          .collection('tables')
+          .doc(tableId)
+          .update({
+            isOpen: false,
+            serverId: userId,
+          });
       }
-      else if (this.tableId == tableId){
+
+      if (tableIsTaken){
+        return;
+      }
+
+      if (tableIsYours){
         //this.tableModal = true;
         this.$router.push({ path: '/menu', query: { tableId } });
       } 
-      else {
-        this.tableId = tableId;
-        this.toggleTable = false;
-      }
-      
-      firebase
-        .firestore()
-        .collection('tables')
-        .doc(tableId)
-        .update({
-          isOpen: this.toggleTable,
-          serverId: userId,
-        });
+        
       if (this.user != null) {
         this.user.providerData.forEach(function(userId) {
           // eslint-disable-next-line no-console
