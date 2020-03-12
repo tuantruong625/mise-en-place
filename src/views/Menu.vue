@@ -47,19 +47,37 @@
 
     <aside class="menu-order">
       <h2>Order Number #12312</h2>
-      <ul v-for="item in order" :key="item.id">
-        <li><span class="menu-item-wrapper__card--name">{{ item.name }}</span>
-          <span class="menu-item-wrapper__card--price">${{ item.price }}</span></li>
+      <ul v-for="(item, itemIndex) in order" :key="itemIndex">
+        <li class="card" @click="openModificationModal(itemIndex)">
+          <span class="menu-item-wrapper__card--name">{{ item.name }}</span>
+          <span class="menu-item-wrapper__card--price">${{ item.price }}</span>
+          <span class="menu-item-wrapper__card--price">{{ item.modifications }}</span>
+        </li>
       </ul>
     </aside>
+    <modal v-if="modifyModal" @close="modifyModal = false">
+      <h3 slot="header">What would you like to modify?</h3>
+      <div slot="body" class="display-name__body">
+
+        <label for="display-name" class="display-name__body--label">
+          <span>Modification</span>
+          <input class="display-name__body--input" type="text" name="modify-item" id="modify-item" v-model="modifiedItem">
+        </label>
+        <button class="display-name__body--button" :disabled="!modifiedItem" @click="modifyItem()">Modify</button>
+      </div>
+    </modal>
   </section>
 </template>
 
 <script>
 import firebase from 'firebase';
 import { pickBy } from 'lodash';
+import Modal from '@/components/Modal';
 
 export default {
+  components: {
+    Modal,
+  },
   name: 'Menu',
   data() {
     return {
@@ -73,6 +91,9 @@ export default {
       tableId: '',//this.$route.query.tableId.toString(),
       totalCost: 0,
       addButton: true,
+      modifyModal: false,
+      modifiedItem: '',
+      itemIndex: 0,
     };
   },
   watch: {
@@ -103,6 +124,20 @@ export default {
     },
   },
   methods: {
+    modifyItem(){
+      
+      this.order[this.itemIndex].modifications = this.modifiedItem;
+      this.modifyModal=false;
+      // eslint-disable-next-line no-console
+      console.log(this.order);
+      
+    },
+    openModificationModal(itemIndex){
+      // eslint-disable-next-line no-console
+      console.log(itemIndex);
+      this.itemIndex = itemIndex;
+      this.modifyModal=true;
+    },
     highlighted(item) {
       item.isHighlighted = !item.isHighlighted;    
       this.order.push(item);
@@ -189,6 +224,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .card {
+    height: 50px;;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+  }
   .menu-container {
     min-height: calc(100vh - 96px);
     color: #495057;
