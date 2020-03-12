@@ -42,7 +42,7 @@
         <span class="action-button quantity">0</span>
         <button class="action-button decrement-button">-</button>
         <button class="action-button modification-button">Modification</button>
-        <button class="action-button add-button" :disabled="addButton">Add</button>
+        <button class="action-button add-button" :disabled="addButton" @click="addToOrder()">Add</button>
       </div>
     </main>
 
@@ -72,10 +72,10 @@ export default {
       search: 'Appetizers',
       isHighlighted: false,
       picked: [],
-      order: [],
+      order: {},
       tableId: this.$route.query.tableId.toString(),
       totalCost: 0,
-      addButton: false,
+      addButton: true,
     };
   },
   watch: {
@@ -109,6 +109,9 @@ export default {
     highlighted(item) {
       this.picked.pop();
       this.picked.push(item);
+      // eslint-disable-next-line no-console
+      console.log(this.picked);
+      this.addButton = false;
       // firebase
       //   .firestore()
       //   .collection('tables')
@@ -118,7 +121,9 @@ export default {
       //   });
     },
     addToOrder(item) {
-      this.order.push(item);  
+      this.order.push(this.picked);  
+      // eslint-disable-next-line no-console
+      console.log(this.order);
     },
     selectedHeader(header) {
       this.search = header;
