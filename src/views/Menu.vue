@@ -70,7 +70,7 @@ export default {
       drinks: {},
       search: 'Appetizers',
       order: [],
-      tableId: '',
+      tableId: '',//this.$route.query.tableId.toString(),
       totalCost: 0,
       addButton: true,
     };
@@ -115,8 +115,6 @@ export default {
       //   });
     },
     addToOrder(item) {
-      // eslint-disable-next-line no-console
-      console.log(this.order);
     },
     selectedHeader(header) {
       this.search = header;
