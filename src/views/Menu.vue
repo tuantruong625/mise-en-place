@@ -18,7 +18,7 @@
       </div>
 
       <ul v-show="showFood" class="menu-item-wrapper" v-for="menu in filteredList" :key="menu.id">
-        <li class="menu-item-wrapper__card" v-for="item in menu.menuItems" :key="item.id" @click="highlighted(item)">
+        <li class="menu-item-wrapper__card" v-for="item in menu.menuItems" :key="item.id" @click="highlighted(item)" :class="{ 'highlighted' : item.isHighlighted  }">
           <span class="menu-item-wrapper__card--name" >{{ item.name }}</span>
           <span class="menu-item-wrapper__card--price">${{ item.price }}</span>
         </li>
@@ -31,7 +31,7 @@
       </div> 
 
       <ul v-show="showDrink" class="menu-item-wrapper" v-for="menu in filteredDrinkList" :key="menu.id">
-        <li class="menu-item-wrapper__card" v-for="item in menu.menuItems" :key="item.id">
+        <li class="menu-item-wrapper__card" v-for="item in menu.menuItems" :key="item.id" @click="highlighted(item)" :class="{ 'highlighted' : item.isHighlighted  }">
           <span class="menu-item-wrapper__card--name">{{ item.name }}</span>
           <span class="menu-item-wrapper__card--price">${{ item.price }}</span>
         </li>
@@ -70,7 +70,6 @@ export default {
       showDrink: false,
       drinks: {},
       search: 'Appetizers',
-      isHighlighted: false,
       picked: [],
       order: {},
       tableId: this.$route.query.tableId.toString(),
@@ -81,7 +80,7 @@ export default {
   watch: {
     showDrink(value) {
       if (value) {
-        this.search = 'Beer Pint';
+        this.search = 'Bottled Beer';
       }
     },
     showFood(value) {
@@ -107,6 +106,9 @@ export default {
   },
   methods: {
     highlighted(item) {
+      item.isHighlighted = !item.isHighlighted;    
+      // eslint-disable-next-line no-console
+      console.log(item);
       this.picked.pop();
       this.picked.push(item);
       // eslint-disable-next-line no-console
@@ -268,6 +270,9 @@ export default {
       border-radius: 10px;
       width: 250px;
       height: 60px;
+      border-left: 5px solid transparent;
+      cursor: pointer;
+      user-select: none;
     }
   }
 
@@ -307,7 +312,6 @@ export default {
 
   .modification-button {
     color: #73c9ba;
-
   }
 
   .add-button {
@@ -315,6 +319,10 @@ export default {
     color: #EFEEEE;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+  }
+
+  .highlighted {
+    border-left: 5px solid #73c9ba;
   }
 
   .menu-order {
