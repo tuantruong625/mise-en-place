@@ -126,7 +126,6 @@ export default {
         this.user.providerData.forEach(function(userId) {
           // eslint-disable-next-line no-console
           console.log(userId); 
-          
         });
       }
       this.tableCount();

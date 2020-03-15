@@ -51,7 +51,7 @@
         <li class="card" @click="openModificationModal(itemIndex)">
           <span class="menu-item-wrapper__card--name">{{ item.name }}</span>
           <span class="menu-item-wrapper__card--price">${{ item.price }}</span>
-          <span class="menu-item-wrapper__card--price">{{ item.modifications }}</span>
+          <span class="menu-item-wrapper__card--price">{{ modifications[itemIndex] }}</span>
         </li>
       </ul>
     </aside>
@@ -94,6 +94,7 @@ export default {
       modifyModal: false,
       modifiedItem: '',
       itemIndex: 0,
+      modifications: [],
     };
   },
   watch: {
@@ -125,22 +126,22 @@ export default {
   },
   methods: {
     modifyItem(){
-      
-      this.order[this.itemIndex].modifications = this.modifiedItem;
+      this.modifications[this.itemIndex] = this.modifiedItem;
+      //this.order[this.itemIndex].modifications = this.modifiedItem;
       this.modifyModal=false;
       // eslint-disable-next-line no-console
       console.log(this.order);
       
     },
     openModificationModal(itemIndex){
-      // eslint-disable-next-line no-console
-      console.log(itemIndex);
       this.itemIndex = itemIndex;
       this.modifyModal=true;
     },
     highlighted(item) {
       item.isHighlighted = !item.isHighlighted;    
       this.order.push(item);
+      this.modifications.push('');
+ 
       // firebase
       //   .firestore()
       //   .collection('tables')
