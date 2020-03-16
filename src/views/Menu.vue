@@ -2,6 +2,11 @@
   <section class="menu-container">
     <header class="menu-header">
       <h1 class="menu-header__title">Menu</h1>
+      <select >
+        <option v-for="table in tables" :key="table.id">
+          {{ table }}
+        </option>
+      </select>
 
       <nav class="menu-nav">
         <span class="menu-nav__link"><a href="#food" @click="showFood = true, showDrink = false">Food</a></span>
@@ -89,6 +94,7 @@ export default {
       search: 'Appetizers',
       order: [],
       tableId: '',//this.$route.query.tableId.toString(),
+      tables: [],
       totalCost: 0,
       addButton: true,
       modifyModal: false,
@@ -158,6 +164,18 @@ export default {
     activeHeader(header) {
       return this.search === header;
     },
+    async getTables() {
+      let tablesRef = await firebase
+        .firestore()
+        .collection('tables')
+        .get();
+      tablesRef.onSnapshot(snap => {
+        this.tables = [];
+        snap.forEach(doc => {
+          this.tables.push(doc.data());
+        });
+      });
+    },
     async getRestaurantData(resId) {
       let restaurant = {};
 
@@ -213,6 +231,7 @@ export default {
     },
   },
   created() {
+    this.getTables();
     this.getRestaurantData('foodMenu').then(response => {
       this.restaurant = response;
     });
