@@ -167,12 +167,11 @@ export default {
     async getTables() {
       let tablesRef = await firebase
         .firestore()
-        .collection('tables')
-        .get();
+        .collection('tables');
       tablesRef.onSnapshot(snap => {
         this.tables = [];
         snap.forEach(doc => {
-          this.tables.push(doc.data());
+          this.tables.push(doc.id);
         });
       });
     },
