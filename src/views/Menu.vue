@@ -2,7 +2,7 @@
   <section class="menu-container">
     <header class="menu-header">
       <h1 class="menu-header__title">Menu</h1>
-      <select >
+      <select v-model="tableId">
         <option v-for="table in tables" :key="table.id">
           {{ table }}
         </option>
@@ -93,7 +93,7 @@ export default {
       drinks: {},
       search: 'Appetizers',
       order: [],
-      tableId: '',//this.$route.query.tableId.toString(),
+      tableId: 'Menu',//this.$route.query.tableId.toString(),
       tables: [],
       totalCost: 0,
       addButton: true,
@@ -131,6 +131,18 @@ export default {
     },
   },
   methods: {
+    getServerTable(){
+      const gotValueFromRoute = this.$route.query.tableId != null;
+      const routeIsNull = this.$route.query.tableId == null;
+      if (routeIsNull){
+        this.tables = '';
+      }
+      if (gotValueFromRoute){
+        this.tableId = this.$route.query.tableId.toString();
+      }
+
+     
+    },
     modifyItem(){
       this.modifications[this.itemIndex] = this.modifiedItem;
       //this.order[this.itemIndex].modifications = this.modifiedItem;
@@ -164,6 +176,7 @@ export default {
     activeHeader(header) {
       return this.search === header;
     },
+    // Get Table Names for Dropdown list
     async getTables() {
       let tablesRef = await firebase
         .firestore()
@@ -231,6 +244,7 @@ export default {
   },
   created() {
     this.getTables();
+    this.getServerTable();
     this.getRestaurantData('foodMenu').then(response => {
       this.restaurant = response;
     });
