@@ -137,7 +137,7 @@ export default {
     populateOrdersFromTable(e){
       // eslint-disable-next-line no-console
       console.log(e.target.value);
-      this.getOrderFromTables();
+      //this.getOrderFromTables();
     },
     sendOrder(){
       const orderIsEmpty = this.order == null;
@@ -224,15 +224,13 @@ export default {
     async getOrderFromTables() {
       let tablesRef = await firebase
         .firestore()
-        .collection('tables')
-        .doc(this.tableId);
+        .collection('tables');
       tablesRef.onSnapshot(snap => {
         this.order = [];
         snap.forEach(doc => {
           let order = doc.data();
           this.order.push(order);
         });
-        this.tableCount();
       });
     },
     // Get Table Names for Dropdown list
