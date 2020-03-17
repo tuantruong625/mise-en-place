@@ -135,9 +135,7 @@ export default {
   },
   methods: {
     populateOrdersFromTable(e){
-      // eslint-disable-next-line no-console
-      console.log(e.target.value);
-      //this.getOrderFromTables();
+      this.getOrderFromTables();
     },
     sendOrder(){
       const orderIsEmpty = this.order == null;
@@ -200,6 +198,8 @@ export default {
       this.modifyModal=true;
     },
     highlighted(item) {
+      // eslint-disable-next-line no-console
+      console.log(item);
       item.isHighlighted = !item.isHighlighted;    
       this.order.push(item);
       this.modifications.push('');
@@ -222,16 +222,14 @@ export default {
     },
     //get order data from tables
     async getOrderFromTables() {
-      let tablesRef = await firebase
-        .firestore()
-        .collection('tables');
-      tablesRef.onSnapshot(snap => {
-        this.order = [];
-        snap.forEach(doc => {
-          let order = doc.data();
-          this.order.push(order);
-        });
-      });
+      this.order = [];
+      const resRef = firebase.firestore().collection('tables');
+      const resSnap = await resRef.doc(this.tableId).get();
+      for (const orders of resSnap.data().order){
+
+        this.order.push(orders);
+      }
+      
     },
     // Get Table Names for Dropdown list
     async getTables() {
