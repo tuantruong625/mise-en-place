@@ -2,7 +2,7 @@
   <section class="menu-container">
     <header class="menu-header">
       <h1 class="menu-header__title">Menu</h1>
-      <select v-model="tableId">
+      <select v-model="tableId" @change="populateOrdersFromTable($event)">
         <option v-for="table in tables" :key="table.id">
           {{ table }}
         </option>
@@ -52,6 +52,8 @@
 
     <aside class="menu-order">
       <h2>Order Number #12312</h2>
+      <button class="display-name__body--button"  @click="deleteItemOffOrder()">Delete</button>
+      <button class="display-name__body--button"  @click="sendOrder()">Send</button>
       <ul v-for="(item, itemIndex) in order" :key="itemIndex">
         <li class="card" @click="openModificationModal(itemIndex)">
           <span class="menu-item-wrapper__card--name">{{ item.name }}</span>
@@ -69,7 +71,7 @@
           <input class="display-name__body--input" type="text" name="modify-item" id="modify-item" v-model="modifiedItem">
         </label>
         <button class="display-name__body--button" :disabled="!modifiedItem" @click="modifyItem()">Add Modification</button>
-        <button class="display-name__body--button" :disabled="!modifiedItem" @click="deleteItem()">Delete Modification</button>
+        <button class="display-name__body--button" @click="deleteModification()">Delete Modification</button>
       </div>
     </modal>
   </section>
@@ -132,7 +134,42 @@ export default {
     },
   },
   methods: {
-    deleteItem(){
+    populateOrdersFromTable(e){
+      // eslint-disable-next-line no-console
+      console.log(e.target.value);
+      this.getOrderFromTables();
+    },
+    sendOrder(){
+      const orderIsEmpty = this.order == null;
+      const orderIsNotEmpty = this.order != null;
+      if (orderIsEmpty){
+        return;
+      }
+
+      if (orderIsNotEmpty){
+        firebase
+          .firestore()
+          .collection('tables')
+          .doc(this.tableId)
+          .update({
+            order: this.order,
+          });
+      }
+
+
+    },
+    deleteItemOffOrder(){
+      const arraysAreEmpty = this.order ==null&&this.modifications==null;
+      if (arraysAreEmpty){
+        alert('Order is empty');
+      }
+      else {
+        this.order.pop();
+        this.modifications.pop();
+      }
+      
+    },
+    deleteModification(){
       this.modifiedItem = '';
       this.modifications[this.itemIndex] = this.modifiedItem;
       //this.order[this.itemIndex].modifications = this.modifiedItem;
@@ -182,6 +219,21 @@ export default {
     },
     activeHeader(header) {
       return this.search === header;
+    },
+    //get order data from tables
+    async getOrderFromTables() {
+      let tablesRef = await firebase
+        .firestore()
+        .collection('tables')
+        .doc(this.tableId);
+      tablesRef.onSnapshot(snap => {
+        this.order = [];
+        snap.forEach(doc => {
+          let order = doc.data();
+          this.order.push(order);
+        });
+        this.tableCount();
+      });
     },
     // Get Table Names for Dropdown list
     async getTables() {
