@@ -68,7 +68,8 @@
           <span>Modification</span>
           <input class="display-name__body--input" type="text" name="modify-item" id="modify-item" v-model="modifiedItem">
         </label>
-        <button class="display-name__body--button" :disabled="!modifiedItem" @click="modifyItem()">Modify</button>
+        <button class="display-name__body--button" :disabled="!modifiedItem" @click="modifyItem()">Add Modification</button>
+        <button class="display-name__body--button" :disabled="!modifiedItem" @click="deleteItem()">Delete Modification</button>
       </div>
     </modal>
   </section>
@@ -131,6 +132,12 @@ export default {
     },
   },
   methods: {
+    deleteItem(){
+      this.modifiedItem = '';
+      this.modifications[this.itemIndex] = this.modifiedItem;
+      //this.order[this.itemIndex].modifications = this.modifiedItem;
+      this.modifyModal=false;
+    },
     getServerTable(){
       const gotValueFromRoute = this.$route.query.tableId != null;
       const routeIsNull = this.$route.query.tableId == null;
