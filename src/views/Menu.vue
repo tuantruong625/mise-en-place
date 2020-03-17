@@ -181,6 +181,7 @@ export default {
       }
       if (gotValueFromRoute){
         this.tableId = this.$route.query.tableId.toString();
+        this.getOrderFromTables();
       }
 
      
@@ -189,8 +190,6 @@ export default {
       this.modifications[this.itemIndex] = this.modifiedItem;
       //this.order[this.itemIndex].modifications = this.modifiedItem;
       this.modifyModal=false;
-      // eslint-disable-next-line no-console
-      console.log(this.order);
       
     },
     openModificationModal(itemIndex){
