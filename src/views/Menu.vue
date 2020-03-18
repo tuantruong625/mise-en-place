@@ -64,7 +64,7 @@
         <li>Total</li>
       </ul>
 
-      <button class="display-name__body--button"  @click="deleteItemOffOrder()">Delete</button>
+      
       <button class="display-name__body--button"  @click="sendOrder()">Send</button>
     </aside>
 
@@ -78,6 +78,7 @@
         </label>
         <button class="display-name__body--button" :disabled="!modifiedItem" @click="modifyItem()">Add Modification</button>
         <button class="display-name__body--button" @click="deleteModification()">Delete Modification</button>
+        <button class="display-name__body--button"  @click="deleteItemOffOrder()">Delete</button>
       </div>
     </modal>
   </section>
@@ -168,8 +169,9 @@ export default {
         alert('Order is empty');
       }
       else {
-        this.order.pop();
-        this.modifications.pop();
+        this.order.splice(this.itemIndex, 1);
+        this.modifications.splice(this.itemIndex, 1);
+        this.modifyModal = false;
       }
 
     },
