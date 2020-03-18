@@ -32,7 +32,7 @@
         <span v-for="menu in drinks.menu" :key="menu.id">
           <span class="menu-items__header--link" :class="{ active: activeHeader(menu.title) }" @click="selectedHeader(menu.title)">{{ menu.title }}</span>
         </span>
-      </div> 
+      </div>
 
       <ul v-show="showDrink" class="menu-item-wrapper" v-for="menu in filteredDrinkList" :key="menu.id">
         <li class="menu-item-wrapper__card" v-for="item in menu.menuItems" :key="item.id" @click="highlighted(item)" :class="{ 'highlighted' : item.isHighlighted  }">
@@ -40,14 +40,6 @@
           <span class="menu-item-wrapper__card--price">${{ item.price }}</span>
         </li>
       </ul>
-
-      <div class="button-wrapper">
-        <button class="action-button increment-button">+</button>
-        <span class="action-button quantity">0</span>
-        <button class="action-button decrement-button">-</button>
-        <button class="action-button modification-button">Modification</button>
-        <button class="action-button add-button" :disabled="addButton" @click="addToOrder()">Add</button>
-      </div>
     </main>
 
     <aside class="menu-order">
@@ -165,7 +157,7 @@ export default {
         this.order.pop();
         this.modifications.pop();
       }
-      
+
     },
     deleteModification(){
       this.modifiedItem = '';
@@ -184,13 +176,13 @@ export default {
         this.getOrderFromTables();
       }
 
-     
+
     },
     modifyItem(){
       this.modifications[this.itemIndex] = this.modifiedItem;
       //this.order[this.itemIndex].modifications = this.modifiedItem;
       this.modifyModal=false;
-      
+
     },
     openModificationModal(itemIndex){
       this.itemIndex = itemIndex;
@@ -199,10 +191,10 @@ export default {
     highlighted(item) {
       // eslint-disable-next-line no-console
       console.log(item);
-      item.isHighlighted = !item.isHighlighted;    
+      item.isHighlighted = !item.isHighlighted;
       this.order.push(item);
       this.modifications.push('');
- 
+
       // firebase
       //   .firestore()
       //   .collection('tables')
@@ -228,7 +220,7 @@ export default {
 
         this.order.push(orders);
       }
-      
+
     },
     // Get Table Names for Dropdown list
     async getTables() {
@@ -326,7 +318,7 @@ export default {
     grid-template-rows: 5rem auto;
     grid-template-areas:
     "header header order"
-    "items items order"; 
+    "items items order";
   }
 
   .menu-header {
@@ -346,7 +338,7 @@ export default {
     &__link a {
       color: #495057;
       text-decoration: none;
-      margin: 0 0.25rem; 
+      margin: 0 0.25rem;
     }
   }
 
@@ -354,7 +346,7 @@ export default {
     display: grid;
     grid-template-rows: 2rem auto 5rem;
     grid-area: items;
-    
+
 
     &__header {
       display: flex;
@@ -371,7 +363,7 @@ export default {
   .menu-item-wrapper {
     display: grid;
     align-self: start;
-    grid-template-columns: auto auto;  
+    grid-template-columns: auto auto;
 
     &__card {
       justify-self: center;
@@ -395,46 +387,6 @@ export default {
   .active {
     text-decoration: underline #76c9ba;
     color: #495057;
-  }
-
-  .button-wrapper {
-    align-self: end;
-    justify-self: center;
-    margin-bottom: 1rem;
-    box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-  }
-
-  .action-button {
-    height: 2.5rem;
-    background: #EFEEEE;
-    border: none;
-    color: #73c9ba;
-  }
-
-  .increment-button {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    color: #73c9ba;
-  }
-
-  .quantity {
-    color: #868E96;
-  }
-
-  .decrement-button {
-
-  }
-
-  .modification-button {
-    color: #73c9ba;
-  }
-
-  .add-button {
-    background: #73c9ba;
-    color: #EFEEEE;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
   }
 
   .highlighted {
