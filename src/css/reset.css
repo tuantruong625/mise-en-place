@@ -39,9 +39,9 @@ body {
     line-height: 1;
 }
 
-ol, ul {
-    list-style: none;
-}
+/*ol, ul {*/
+/*    list-style: circle !important;*/
+/*}*/
 
 blockquote, q {
     quotes: none;

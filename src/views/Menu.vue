@@ -10,11 +10,11 @@
         </select>
 
       </div>
-
       <nav class="menu-nav">
         <span class="menu-nav__link"><a href="#food" @click="showFood = true, showDrink = false">Food</a></span>
         <span class="menu-nav__link"><a href="#drinks" @click="showDrink = true, showFood = false">Drink</a></span>
       </nav>
+
     </header>
 
     <main class="menu-items">
@@ -46,17 +46,28 @@
     </main>
 
     <aside class="menu-order">
-      <h2>Order Number #12312</h2>
+      <h2 class="menu-order__title">Order Number
+        <span class="menu-order__title--number">#12312</span>
+      </h2>
+
+      <div class="order-items-container">
+        <transition-group name="slide-up" tag="ul" appear class="order-items-wrapper" v-for="(item, itemIndex) in order" :key="itemIndex">
+          <li class="order-item" @click="openModificationModal(itemIndex)" :key="itemIndex">
+            <span class="order-item__name">{{ item.name }}</span>
+            <span class="order-item__price">${{ item.price }}</span>
+          </li>
+          <span class="order-item__modification" :key="itemIndex + 1">{{ modifications[itemIndex] }}</span>
+        </transition-group>
+      </div>
+
+      <ul class="order-totals">
+        <li>Total</li>
+      </ul>
+
       <button class="display-name__body--button"  @click="deleteItemOffOrder()">Delete</button>
       <button class="display-name__body--button"  @click="sendOrder()">Send</button>
-      <ul v-for="(item, itemIndex) in order" :key="itemIndex">
-        <li class="card" @click="openModificationModal(itemIndex)">
-          <span class="menu-item-wrapper__card--name">{{ item.name }}</span>
-          <span class="menu-item-wrapper__card--price">${{ item.price }}</span>
-          <span class="menu-item-wrapper__card--price">{{ modifications[itemIndex] }}</span>
-        </li>
-      </ul>
     </aside>
+
     <modal v-if="modifyModal" @close="modifyModal = false">
       <h3 slot="header">What would you like to modify?</h3>
       <div slot="body" class="display-name__body">
@@ -427,11 +438,53 @@ export default {
 
   .menu-order {
     grid-area: order;
-    border: 1px solid green;
     background: #EFEEEE;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     margin: 1.5rem;
+    padding: 1.5rem;
+
+    &__title {
+      font-size: 1.5rem;
+      color: #495057;
+
+      &--number {
+        color: #76c9ba;
+      }
+    }
+  }
+
+  .order-items-container {
+    height: 30rem;
+    overflow: scroll;
+  }
+
+  .order-items-wrapper {
+    margin: 1rem 0;
+    /*border: 1px solid blue;*/
+    text-transform: capitalize;
+    list-style: circle;
+
+  }
+
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem;
+
+    &__price {
+      margin-left: auto;
+    }
+
+    &__modification {
+      padding-left: 1rem;
+      text-transform: none;
+      font-style: italic;
+    }
+  }
+
+  .order-totals {
+    border-top: 1px solid #495057;
   }
 </style>
