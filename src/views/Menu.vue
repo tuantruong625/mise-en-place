@@ -111,6 +111,7 @@ export default {
       modifiedItem: '',
       itemIndex: 0,
       filteredTableList: [],
+      tableData: [],
     };
   },
   watch: {
@@ -141,10 +142,6 @@ export default {
     },
   },
   methods: {
-    filterTableList(){
-      // eslint-disable-next-line no-console
-      console.log(this.tables);
-    },
     populateOrdersFromTable(e){
       this.getOrderFromTables();
     },
@@ -244,7 +241,10 @@ export default {
       tablesRef.onSnapshot(snap => {
         this.tables = [];
         snap.forEach(doc => {
-          this.tables.push(doc.id);
+          const serverOwnsTable = doc.data().serverId==this.user.displayName;
+          if (serverOwnsTable){
+            this.tables.push(doc.id);
+          }
         });
       });
     },
@@ -304,7 +304,6 @@ export default {
   },
   created() {
     this.getTables();
-    this.filterTableList();
     this.getServerTable();
     this.getRestaurantData('foodMenu').then(response => {
       this.restaurant = response;
