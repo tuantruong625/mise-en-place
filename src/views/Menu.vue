@@ -56,7 +56,7 @@
             <span class="order-item__name">{{ item.name }}</span>
             <span class="order-item__price">${{ item.price }}</span>
           </li>
-          <span class="order-item__modification" :key="itemIndex + 1">{{ modifications[itemIndex] }}</span>
+          <span class="order-item__modification" :key="itemIndex + 1">{{ item.modifications }}</span>
         </transition-group>
       </div>
 
@@ -110,7 +110,6 @@ export default {
       modifyModal: false,
       modifiedItem: '',
       itemIndex: 0,
-      modifications: [],
     };
   },
   watch: {
@@ -170,16 +169,21 @@ export default {
       }
       else {
         this.order.splice(this.itemIndex, 1);
-        this.modifications.splice(this.itemIndex, 1);
         this.modifyModal = false;
       }
 
     },
     deleteModification(){
       this.modifiedItem = '';
-      this.modifications[this.itemIndex] = this.modifiedItem;
-      //this.order[this.itemIndex].modifications = this.modifiedItem;
+      this.order[this.itemIndex].modifications = this.modifiedItem;
       this.modifyModal=false;
+      firebase
+        .firestore()
+        .collection('tables')
+        .doc(this.tableId)
+        .update({
+          order: this.order,
+        });
     },
     getServerTable(){
       const gotValueFromRoute = this.$route.query.tableId != null;
@@ -195,7 +199,6 @@ export default {
 
     },
     modifyItem(){
-      this.modifications[this.itemIndex] = this.modifiedItem;
       this.order[this.itemIndex].modifications = this.modifiedItem;
       this.modifyModal=false;
 
@@ -215,7 +218,6 @@ export default {
     highlighted(item) {
       item.isHighlighted = !item.isHighlighted;
       this.order.push(item);
-      this.modifications.push('');
 
       setTimeout(() => {
         item.isHighlighted = false;
