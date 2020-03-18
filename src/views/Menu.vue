@@ -65,7 +65,7 @@
       </ul>
 
       
-      <button class="display-name__body--button"  @click="sendOrder()">Send</button>
+      <button class="display-name__body--button"  >Send</button>
     </aside>
 
     <modal v-if="modifyModal" @close="modifyModal = false">
@@ -110,6 +110,7 @@ export default {
       modifyModal: false,
       modifiedItem: '',
       itemIndex: 0,
+      filteredTableList: [],
     };
   },
   watch: {
@@ -140,27 +141,12 @@ export default {
     },
   },
   methods: {
+    filterTableList(){
+      // eslint-disable-next-line no-console
+      console.log(this.tables);
+    },
     populateOrdersFromTable(e){
       this.getOrderFromTables();
-    },
-    sendOrder(){
-      const orderIsEmpty = this.order == null;
-      const orderIsNotEmpty = this.order != null;
-      if (orderIsEmpty){
-        return;
-      }
-
-      if (orderIsNotEmpty){
-        firebase
-          .firestore()
-          .collection('tables')
-          .doc(this.tableId)
-          .update({
-            order: this.order,
-          });
-      }
-
-
     },
     deleteItemOffOrder(){
       const arraysAreEmpty = this.order ==null&&this.modifications==null;
@@ -318,6 +304,7 @@ export default {
   },
   created() {
     this.getTables();
+    this.filterTableList();
     this.getServerTable();
     this.getRestaurantData('foodMenu').then(response => {
       this.restaurant = response;
