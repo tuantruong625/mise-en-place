@@ -196,8 +196,16 @@ export default {
     },
     modifyItem(){
       this.modifications[this.itemIndex] = this.modifiedItem;
-      //this.order[this.itemIndex].modifications = this.modifiedItem;
+      this.order[this.itemIndex].modifications = this.modifiedItem;
       this.modifyModal=false;
+
+      firebase
+        .firestore()
+        .collection('tables')
+        .doc(this.tableId)
+        .update({
+          order: this.order,
+        });
 
     },
     openModificationModal(itemIndex){
@@ -213,13 +221,13 @@ export default {
         item.isHighlighted = false;
       }, 1000);
 
-      // firebase
-      //   .firestore()
-      //   .collection('tables')
-      //   .doc(this.tableId)
-      //   .update({
-      //     order: item,
-      //   });
+      firebase
+        .firestore()
+        .collection('tables')
+        .doc(this.tableId)
+        .update({
+          order: this.order,
+        });
     },
     addToOrder(item) {
     },
