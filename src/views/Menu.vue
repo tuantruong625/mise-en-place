@@ -1,12 +1,15 @@
 <template>
   <section class="menu-container">
     <header class="menu-header">
-      <h1 class="menu-header__title">Menu</h1>
-      <select v-model="tableId" @change="populateOrdersFromTable($event)">
-        <option v-for="table in tables" :key="table.id">
-          {{ table }}
-        </option>
-      </select>
+      <div class="menu-header-left">
+        <h1 class="menu-header__title">Table</h1>
+        <select class="menu-header-select" v-model="tableId" @change="populateOrdersFromTable($event)">
+          <option class="menu-header-select__item" v-for="table in tables" :key="table.id">
+            {{ table }}
+          </option>
+        </select>
+
+      </div>
 
       <nav class="menu-nav">
         <span class="menu-nav__link"><a href="#food" @click="showFood = true, showDrink = false">Food</a></span>
@@ -329,8 +332,30 @@ export default {
     padding: 1rem;
 
     &__title {
-      font-size: 1.25rem;
-      color: #adb5bd;
+      font-size: 1.5rem;
+      color: #495057;
+    }
+  }
+
+  .menu-header-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .menu-header-select {
+    height: 2rem;
+    width: 5rem;
+    overflow: hidden;
+    margin-left: 0.5rem;
+    background: #EFEEEE;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    color: #76c9ba;
+    font-weight: 600;
+
+    &__select {
+
     }
   }
 
@@ -359,6 +384,8 @@ export default {
       }
     }
   }
+
+
 
   .menu-item-wrapper {
     display: grid;
