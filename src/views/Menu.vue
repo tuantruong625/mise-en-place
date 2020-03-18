@@ -353,10 +353,6 @@ export default {
     border-radius: 10px;
     color: #76c9ba;
     font-weight: 600;
-
-    &__select {
-
-    }
   }
 
   .menu-nav {
@@ -408,6 +404,12 @@ export default {
       border-left: 5px solid transparent;
       cursor: pointer;
       user-select: none;
+    }
+
+    &__card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+      transition: all .5s;
     }
   }
 
