@@ -192,11 +192,13 @@ export default {
       this.modifyModal=true;
     },
     highlighted(item) {
-      // eslint-disable-next-line no-console
-      console.log(item);
       item.isHighlighted = !item.isHighlighted;
       this.order.push(item);
       this.modifications.push('');
+
+      setTimeout(() => {
+        item.isHighlighted = false;
+      }, 1000);
 
       // firebase
       //   .firestore()
@@ -404,12 +406,13 @@ export default {
       border-left: 5px solid transparent;
       cursor: pointer;
       user-select: none;
+      transition: all .2s;
     }
 
     &__card:hover {
       transform: translateY(-3px);
       box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
-      transition: all .5s;
+      transition: all .2s;
     }
   }
 
