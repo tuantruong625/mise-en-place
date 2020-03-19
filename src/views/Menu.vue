@@ -141,7 +141,7 @@ export default {
   },
   methods: {
     increseOrderNumber(){
-      if (this.orderNumber == 999){
+      if (this.orderNumber === 999){
         this.orderNumber = 0;
       }
       const orderNumberPush = this.orderNumber+1;
@@ -158,7 +158,7 @@ export default {
       this.getOrderFromTables();
     },
     deleteItemOffOrder(){
-      const arraysAreEmpty = this.order ==null&&this.modifications==null;
+      const arraysAreEmpty = this.order === null && this.modifications === null;
       if (arraysAreEmpty){
         alert('Order is empty');
       }
@@ -181,8 +181,8 @@ export default {
         });
     },
     getServerTable(){
-      const gotValueFromRoute = this.$route.query.tableId != null;
-      const routeIsNull = this.$route.query.tableId == null;
+      const gotValueFromRoute = this.$route.query.tableId !== null;
+      const routeIsNull = this.$route.query.tableId === null;
       if (routeIsNull){
         this.tables = '';
       }
@@ -190,8 +190,6 @@ export default {
         this.tableId = this.$route.query.tableId.toString();
         this.getOrderFromTables();
       }
-
-
     },
     modifyItem(){
       this.order[this.itemIndex].modifications = this.modifiedItem;
@@ -204,7 +202,6 @@ export default {
         .update({
           order: this.order,
         });
-
     },
     openModificationModal(itemIndex){
       this.itemIndex = itemIndex;
@@ -225,8 +222,6 @@ export default {
         .update({
           order: this.order,
         });
-    },
-    addToOrder(item) {
     },
     selectedHeader(header) {
       this.search = header;
@@ -252,7 +247,7 @@ export default {
       tablesRef.onSnapshot(snap => {
         this.tables = [];
         snap.forEach(doc => {
-          const serverOwnsTable = doc.data().serverId==this.user.displayName;
+          const serverOwnsTable = doc.data().serverId === this.user.displayName;
           if (serverOwnsTable){
             this.tables.push(doc.id);
           }
