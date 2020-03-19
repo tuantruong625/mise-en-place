@@ -97,9 +97,9 @@ export default {
       this.tableId = '';
     },
     hostTable(tableId, userId, table){
-      const tableIsYours = userId == table.serverId;
-      const tableIsTaken = userId != table.serverId;
-      const tableIsEmpty = table.serverId == '';
+      const tableIsYours = userId === table.serverId;
+      const tableIsTaken = userId !== table.serverId;
+      const tableIsEmpty = table.serverId === '';
 
       if (tableIsEmpty){
         firebase
