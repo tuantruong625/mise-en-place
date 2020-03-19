@@ -9,7 +9,7 @@
     </header>
 
     <main class="table-main">
-      <div class="card" v-for="table in tables" :key="table.id" @click="hostTable(table.id, user.displayName, table)">
+      <div class="card" v-for="table in tables" :key="table.id" @click="assignTable(table.id, user.displayName, table)">
         <dl class="card-details">
           <dt :class="{ 'card-details__title-open' : table.isOpen, 'card-details__title-occupied' : !table.isOpen  }">{{ table.id }}</dt>
           <dd class="card-details__server">
@@ -96,7 +96,7 @@ export default {
       this.tableCount();
       this.tableId = '';
     },
-    hostTable(tableId, userId, table){
+    assignTable(tableId, userId, table){
       const tableIsYours = userId === table.serverId;
       const tableIsTaken = userId !== table.serverId;
       const tableIsEmpty = table.serverId === '';
