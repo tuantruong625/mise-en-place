@@ -64,7 +64,7 @@
         <li>Total</li>
       </ul>
 
-      
+
       <button class="display-name__body--button"  >Send</button>
     </aside>
 
@@ -103,7 +103,7 @@ export default {
       drinks: {},
       search: 'Appetizers',
       order: [],
-      tableId: 'Menu',//this.$route.query.tableId.toString(),
+      tableId: 'Menu',
       tables: [],
       totalCost: 0,
       addButton: true,
@@ -137,9 +137,6 @@ export default {
       return pickBy(this.drinks.menu, (value, key) => {
         return value.title === this.search;
       });
-    },
-    defaultCategory() {
-      return this.showFood ? 'Appetizers' : 'Beer Pint';
     },
   },
   methods: {
