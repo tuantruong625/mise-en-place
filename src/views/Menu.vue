@@ -47,7 +47,7 @@
 
     <aside class="menu-order">
       <h2 class="menu-order__title">Order Number
-        <span class="menu-order__title--number">#12312</span>
+        <span class="menu-order__title--number">#{{ orderNumber }}</span>
       </h2>
 
       <div class="order-items-container">
@@ -112,6 +112,7 @@ export default {
       itemIndex: 0,
       filteredTableList: [],
       tableData: [],
+      orderNumber: 110,
     };
   },
   watch: {
@@ -142,6 +143,21 @@ export default {
     },
   },
   methods: {
+    increseOrderNumber(){
+      if (this.orderNumber == 999){
+        this.orderNumber = 0;
+      }
+      const orderNumberPush = this.orderNumber+1;
+      // eslint-disable-next-line no-console
+      console.log(orderNumberPush);
+      firebase
+        .firestore()
+        .collection('tables')
+        .doc(this.tableId)
+        .update({
+          orderNumber: orderNumberPush,
+        });
+    },
     populateOrdersFromTable(e){
       this.getOrderFromTables();
     },
@@ -227,11 +243,12 @@ export default {
       this.order = [];
       const resRef = firebase.firestore().collection('tables');
       const resSnap = await resRef.doc(this.tableId).get();
+      this.orderNumber = resSnap.data().orderNumber;
+      // eslint-disable-next-line no-console
+      console.log(this.orderNumber);
       for (const orders of resSnap.data().order){
-
         this.order.push(orders);
       }
-
     },
     // Get Table Names for Dropdown list
     async getTables() {
