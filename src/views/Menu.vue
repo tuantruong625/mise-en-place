@@ -145,8 +145,7 @@ export default {
         this.orderNumber = 0;
       }
       const orderNumberPush = this.orderNumber+1;
-      // eslint-disable-next-line no-console
-      console.log(orderNumberPush);
+
       firebase
         .firestore()
         .collection('tables')
@@ -241,8 +240,6 @@ export default {
       const resRef = firebase.firestore().collection('tables');
       const resSnap = await resRef.doc(this.tableId).get();
       this.orderNumber = resSnap.data().orderNumber;
-      // eslint-disable-next-line no-console
-      console.log(this.orderNumber);
       for (const orders of resSnap.data().order){
         this.order.push(orders);
       }

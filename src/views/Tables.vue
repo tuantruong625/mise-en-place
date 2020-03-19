@@ -3,7 +3,7 @@
     <header class="table-header">
       <h1 class="table-header__title">Main Dining Room</h1>
       <p class="table-header__details">
-        Occupied tables: <span class="table-header__details--occupied">{{ occupiedTables }}</span> 
+        Occupied tables: <span class="table-header__details--occupied">{{ occupiedTables }}</span>
         | Empty tables: <span class="table-header__details--empty">{{ emptyTables }}</span>
       </p>
     </header>
@@ -101,7 +101,7 @@ export default {
       const tableIsYours = userId == table.serverId;
       const tableIsTaken = userId != table.serverId;
       const tableIsEmpty = table.serverId == '';
-      
+
       if (tableIsEmpty){
         firebase
           .firestore()
@@ -118,14 +118,11 @@ export default {
       }
 
       if (tableIsYours){
-        //this.tableModal = true;
         this.$router.push({ path: '/menu', query: { tableId } });
-      } 
-        
+      }
+
       if (this.user != null) {
         this.user.providerData.forEach(function(userId) {
-          // eslint-disable-next-line no-console
-          console.log(userId); 
         });
       }
       this.tableCount();
@@ -164,8 +161,6 @@ export default {
 
   created() {
     this.user = firebase.auth().currentUser;
-    // eslint-disable-next-line no-console
-    console.log(this.user);
     this.getTables();
   },
 };
@@ -178,7 +173,7 @@ export default {
   color: #495057;
   background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%2376c9ba' fill-opacity='0.1'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   display: grid;
-  grid-template-areas: 
+  grid-template-areas:
   "header"
   "table-main";
   grid-template-rows: 5rem auto;
@@ -225,13 +220,13 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  
+
   &__title-open {
     display: flex;
     align-items: center;
     font-size: 1.5rem;
     margin-top: auto;
-    
+
     &::before {
       content: '';
       display: flex;
@@ -298,7 +293,7 @@ export default {
       border: 1px solid #282E72;
       box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
     }
-    
+
   }
 }
 
@@ -341,7 +336,7 @@ export default {
     margin: 1rem 0;
       &:disabled {
         background: #282E72;
-        opacity: 75%; 
+        opacity: 75%;
       }
     }
   }
