@@ -199,7 +199,7 @@ export default {
       }
     },
     modifyItem(){
-      const modify = this.order[this.itemIndex].modifications = this.modifiedItem;
+      this.order[this.itemIndex].modifications = this.modifiedItem;
       this.modifyModal=false;
 
       firebase
@@ -207,7 +207,7 @@ export default {
         .collection('tables')
         .doc(this.tableId)
         .update({
-          order: modify,
+          order: this.order,
         });
     },
     openModificationModal(itemIndex){
