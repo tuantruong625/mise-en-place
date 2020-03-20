@@ -165,6 +165,13 @@ export default {
       else {
         this.order.splice(this.itemIndex, 1);
         this.modifyModal = false;
+        firebase
+          .firestore()
+          .collection('tables')
+          .doc(this.tableId)
+          .update({
+            order: this.order,
+          });
       }
 
     },
@@ -192,7 +199,7 @@ export default {
       }
     },
     modifyItem(){
-      this.order[this.itemIndex].modifications = this.modifiedItem;
+      const modify = this.order[this.itemIndex].modifications = this.modifiedItem;
       this.modifyModal=false;
 
       firebase
@@ -200,7 +207,7 @@ export default {
         .collection('tables')
         .doc(this.tableId)
         .update({
-          order: this.order,
+          order: modify,
         });
     },
     openModificationModal(itemIndex){
