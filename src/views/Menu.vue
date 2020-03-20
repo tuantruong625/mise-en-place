@@ -205,6 +205,7 @@ export default {
     },
     openModificationModal(itemIndex){
       this.itemIndex = itemIndex;
+      this.modifiedItem = '';
       this.modifyModal=true;
     },
     highlighted(item) {
@@ -247,7 +248,7 @@ export default {
       tablesRef.onSnapshot(snap => {
         this.tables = [];
         snap.forEach(doc => {
-          const serverOwnsTable = doc.data().serverId === this.user.displayName;
+          const serverOwnsTable = doc.data().serverId == this.user.displayName;
           if (serverOwnsTable){
             this.tables.push(doc.id);
           }
