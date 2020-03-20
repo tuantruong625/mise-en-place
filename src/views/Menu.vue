@@ -181,7 +181,7 @@ export default {
         });
     },
     getServerTable(){
-      const gotValueFromRoute = this.$route.query.tableId !== null;
+      const gotValueFromRoute = this.$route.query.tableId != null;
       const routeIsNull = this.$route.query.tableId === null;
       if (routeIsNull){
         this.tables = '';
