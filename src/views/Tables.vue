@@ -211,6 +211,15 @@ export default {
   border-radius: 10px;
   justify-self: center;
   align-self: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all .2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    transition: all .2s;
+  }
 }
 
 .card-details {
