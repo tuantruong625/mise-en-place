@@ -13,7 +13,7 @@
         <dl class="card-details">
           <dt :class="{ 'card-details__title-open' : table.isOpen, 'card-details__title-occupied' : !table.isOpen  }">{{ table.id }}</dt>
           <dd class="card-details__server">
-            <img class="card-details__server--image" :src="user.photoURL" alt="Avatar image for servers">
+            <img class="card-details__server--image" :src="avatarImagePlaceholder" alt="Avatar image for servers">
             {{ table.serverId }}
           </dd>
         </dl>

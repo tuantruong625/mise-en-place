@@ -389,7 +389,8 @@ export default {
 
     &__header {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
+      padding: 0 1rem;
 
       &--link {
         font-size: 1.25rem;
@@ -398,8 +399,6 @@ export default {
       }
     }
   }
-
-
 
   .menu-item-wrapper {
     display: grid;
