@@ -403,7 +403,7 @@ export default {
   .menu-item-wrapper {
     display: grid;
     align-self: start;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
 
     &__card {
       justify-self: center;
