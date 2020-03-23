@@ -375,9 +375,10 @@ export default {
 
   .menu-nav {
     &__link {
+      font-size: 1.25rem;
       color: #495057;
       text-decoration: none;
-      margin-left: 0.25rem;
+      margin-left: 0.5em;
       cursor: pointer;
     }
   }
