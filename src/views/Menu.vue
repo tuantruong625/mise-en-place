@@ -1,6 +1,7 @@
 <template>
   <section class="menu-container">
     <header class="menu-header">
+      
       <div class="menu-header-left">
         <h1 class="menu-header__title">Table</h1>
         <select class="menu-header-select" v-model="tableId" @change="populateOrdersFromTable($event)">
@@ -162,20 +163,6 @@ export default {
       // eslint-disable-next-line no-console
       console.log('this is the best');
       this.$router.push({ path: '/review', query: { tableId } });
-    },
-    increseOrderNumber(){
-      if (this.orderNumber === 999){
-        this.orderNumber = 0;
-      }
-      const orderNumberPush = this.orderNumber+1;
-
-      firebase
-        .firestore()
-        .collection('tables')
-        .doc(this.tableId)
-        .update({
-          orderNumber: orderNumberPush,
-        });
     },
     populateOrdersFromTable(e){
       this.getOrderFromTables();

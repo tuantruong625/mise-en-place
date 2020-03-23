@@ -22,7 +22,7 @@
       </ul>
 
       <div class="button-group">
-        <button class="order-button send-button">Edit</button>
+        <button class="order-button send-button" @click="backButton()">Edit</button>
         <button class="order-button send-button" @click="clearTable()">Print</button>
       </div>
     </aside>
@@ -37,6 +37,7 @@ export default {
       tableId: this.$route.query.tableId,
       order: [],
       orderNumber: 0,
+      modifyModal: false,
     };
   },
   computed: {
@@ -55,6 +56,10 @@ export default {
     },
   },
   methods:{
+    backButton(){
+      const tableId = this.tableId;
+      this.$router.push({ path: '/menu', query: { tableId } });
+    },
     clearTable(){
       this.order = [];
       const clearServerId = '';
@@ -78,7 +83,7 @@ export default {
       //take us back to the tables page
       this.$router.push({ path: '/tables' });
     },
-    async getOrderFromTables() {
+    async getOrderFromMenu() {
       this.order = [];
       const resRef = firebase.firestore().collection('tables');
       const resSnap = await resRef.doc(this.tableId).get();
@@ -90,12 +95,17 @@ export default {
   },
   created() {
     this.user = firebase.auth().currentUser;
-    this.getOrderFromTables();
+    this.getOrderFromMenu();
   },
 };
 </script>
 <style lang="scss" scoped>
-  .review-container {
+  .card {
+    height: 50px;;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+  }
+  .menu-container {
     min-height: calc(100vh - 96px);
     color: #495057;
     margin-top: 5.8rem;
@@ -106,5 +116,190 @@ export default {
     grid-template-areas:
     "header header order"
     "items items order";
+  }
+
+  .menu-header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+
+    &__title {
+      font-size: 1.5rem;
+      color: #495057;
+    }
+  }
+
+  .menu-header-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .menu-header-select {
+    height: 2rem;
+    width: 5rem;
+    overflow: hidden;
+    margin-left: 0.5rem;
+    background: #EFEEEE;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    color: #76c9ba;
+    font-weight: 600;
+  }
+
+  .menu-nav {
+    &__link {
+      font-size: 1.25rem;
+      color: #495057;
+      text-decoration: none;
+      margin-left: 0.5em;
+      cursor: pointer;
+      cursor: pointer;
+    }
+  }
+
+  .menu-items {
+    display: grid;
+    grid-template-rows: 2rem auto 5rem;
+    grid-area: items;
+
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem;
+
+      &--link {
+        font-size: 1.25rem;
+        cursor: pointer;
+        color: #ced4da;
+      }
+    }
+  }
+
+  .menu-item-wrapper {
+    display: grid;
+    align-self: start;
+    grid-template-columns: auto auto auto;
+
+    &__card {
+      justify-self: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem;
+      padding: 0 1rem;
+      background: #EFEEEE;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+      border-radius: 10px;
+      width: 250px;
+      height: 60px;
+      border-left: 5px solid transparent;
+      cursor: pointer;
+      user-select: none;
+      transition: all .2s;
+      text-transform: capitalize;
+    }
+
+    &__card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+      transition: all .2s;
+    }
+  }
+
+  .active {
+    text-decoration: underline #76c9ba;
+    color: #495057;
+  }
+
+  .highlighted {
+    border-left: 5px solid #73c9ba;
+  }
+
+  .menu-order {
+    grid-area: order;
+    background: #EFEEEE;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    margin: 1.5rem;
+    padding: 1.5rem;
+
+    &__title {
+      font-size: 1.5rem;
+      color: #495057;
+
+      &--number {
+        color: #76c9ba;
+      }
+    }
+  }
+
+  .order-items-container {
+    height: 30rem;
+    overflow: scroll;
+  }
+
+  .order-items-wrapper {
+    margin: 1rem 0;
+    text-transform: capitalize;
+    list-style: circle;
+  }
+
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem;
+
+    &__price {
+      margin-left: auto;
+    }
+
+    &__modification {
+      padding-left: 1rem;
+      text-transform: none;
+      font-style: italic;
+    }
+  }
+
+  .order-total {
+    border-top: 1px solid #495057;
+
+    &__text {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      font-size: 1.15rem;
+
+      &--label {
+        color: #76c9ba;
+      }
+    }
+  }
+
+  .button-group {
+    margin-top: 1rem;
+    display: flex;
+  }
+
+  .order-button {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    height: 2.5rem;
+  }
+
+  .review-button {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  .send-button {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 </style>
