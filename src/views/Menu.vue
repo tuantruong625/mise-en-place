@@ -66,6 +66,10 @@
         <li class="order-total__text"><span class="order-total__text--label">Total: </span>{{ total }}</li>
       </ul>
 
+      <div class="button-group">
+        <button class="order-button review-button">Review Order</button>
+        <button class="order-button send-button">Send</button>
+      </div>
     </aside>
 
     <modal v-if="modifyModal" @close="modifyModal = false">
@@ -515,5 +519,27 @@ export default {
         color: #76c9ba;
       }
     }
+  }
+
+  .button-group {
+    margin-top: 1rem;
+    display: flex;
+  }
+
+  .order-button {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    height: 2.5rem;
+  }
+
+  .review-button {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  .send-button {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 </style>
