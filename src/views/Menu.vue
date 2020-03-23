@@ -60,12 +60,12 @@
         </transition-group>
       </div>
 
-      <ul class="order-totals">
-        <li>Total</li>
+      <ul class="order-total">
+        <li class="order-total__text"><span class="order-total__text--label">Subtotal: </span>{{ subTotal }}</li>
+        <li class="order-total__text"><span class="order-total__text--label">Tax: </span>{{ tax }}</li>
+        <li class="order-total__text"><span class="order-total__text--label">Total: </span>{{ total }}</li>
       </ul>
 
-
-      <button class="display-name__body--button"  >Send</button>
     </aside>
 
     <modal v-if="modifyModal" @close="modifyModal = false">
@@ -138,6 +138,19 @@ export default {
         return value.title === this.search;
       });
     },
+    tax() {
+      return (this.subTotal * 0.13).toFixed(2);
+    },
+    subTotal() {
+      let total = 0;
+      this.order.forEach((item) => {
+        total += item.price;
+      });
+      return total.toFixed(2);
+    },
+    total() {
+      return (this.subTotal * 1.13).toFixed(2);
+    },
   },
   methods: {
     increseOrderNumber(){
@@ -166,7 +179,6 @@ export default {
         this.order.splice(this.itemIndex, 1);
         this.modifyModal = false;
       }
-
     },
     deleteModification(){
       this.modifiedItem = '';
@@ -318,6 +330,7 @@ export default {
     this.getDrinkData('drinkMenu').then(response => {
       this.drinks = response;
     });
+    this.getOrderFromTables();
     this.user = firebase.auth().currentUser;
   },
 };
@@ -379,6 +392,7 @@ export default {
       color: #495057;
       text-decoration: none;
       margin-left: 0.5em;
+      cursor: pointer;
       cursor: pointer;
     }
   }
@@ -468,10 +482,8 @@ export default {
 
   .order-items-wrapper {
     margin: 1rem 0;
-    /*border: 1px solid blue;*/
     text-transform: capitalize;
     list-style: circle;
-
   }
 
   .order-item {
@@ -490,7 +502,18 @@ export default {
     }
   }
 
-  .order-totals {
+  .order-total {
     border-top: 1px solid #495057;
+
+    &__text {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      font-size: 1.15rem;
+
+      &--label {
+        color: #76c9ba;
+      }
+    }
   }
 </style>
