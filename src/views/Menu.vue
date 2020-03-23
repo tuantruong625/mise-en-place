@@ -11,8 +11,8 @@
 
       </div>
       <nav class="menu-nav">
-        <span class="menu-nav__link"><a href="#food" @click="showFood = true, showDrink = false">Food</a></span>
-        <span class="menu-nav__link"><a href="#drinks" @click="showDrink = true, showFood = false">Drink</a></span>
+        <span class="menu-nav__link" @click="showFood = true, showDrink = false" :class="{ active: showFood }">Food</span>
+        <span class="menu-nav__link" @click="showDrink = true, showFood = false" :class="{ active: showDrink }">Drink</span>
       </nav>
 
     </header>
@@ -374,10 +374,11 @@ export default {
   }
 
   .menu-nav {
-    &__link a {
+    &__link {
       color: #495057;
       text-decoration: none;
       margin: 0 0.25rem;
+      cursor: pointer;
     }
   }
 
