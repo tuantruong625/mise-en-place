@@ -21,7 +21,19 @@
     </main>
 
     <aside class="message-board">
-      <h2>Message Board</h2>
+      <h2 class="message-board__title">Message Board</h2>
+      <div v-for="message in messages" :key="message.id" >
+        <dl class="message">
+          <dd class="message__text">
+            {{ message.message }}
+          </dd>
+          <dd class="message__date-time">
+            {{ message.messageDateTime.toDate() }}
+          </dd>
+        </dl>
+      </div>
+
+
     </aside>
 
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
@@ -62,6 +74,7 @@ export default {
       toggleTable: true,
       toggleName: '',
       tableId: '',
+      messages: [],
     };
   },
   computed: {
@@ -153,11 +166,25 @@ export default {
         this.tableCount();
       });
     },
+    async getMessageBoard() {
+      let tablesRef = await firebase
+        .firestore()
+        .collection('messages');
+      tablesRef.onSnapshot(snap => {
+        this.messages = [];
+        snap.forEach(doc => {
+          let message = doc.data();
+          message.id = doc.id;
+          this.messages.push(message);
+        });
+      });
+    },
   },
 
   created() {
     this.user = firebase.auth().currentUser;
     this.getTables();
+    this.getMessageBoard();
   },
 };
 </script>
@@ -306,6 +333,7 @@ export default {
   grid-area: table-main;
   display: grid;
   grid-template-columns: auto auto auto auto;
+  grid-gap: 1.5rem;
 }
 
 .display-name {
@@ -354,6 +382,25 @@ export default {
     border-radius: 10px;
     margin: 1.5rem;
     padding: 1.5rem;
+    font-size: 1.25rem;
+
+    &__title {
+      color: #76c9ba;
+    }
+  }
+
+  .message {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    &__text {
+      padding-bottom: 0.5rem;
+    }
+
+    &__date-time {
+      font-size: 1rem;
+      color: #868e96;
+    }
   }
 
 </style>
