@@ -27,7 +27,7 @@
       <ul v-show="showFood" class="menu-item-wrapper" v-for="menu in filteredList" :key="menu.id">
         <li class="menu-item-wrapper__card" v-for="item in menu.menuItems" :key="item.id" @click="highlighted(item)" :class="{ 'highlighted' : item.isHighlighted  }">
           <span class="menu-item-wrapper__card--name" >{{ item.name }}</span>
-          <span class="menu-item-wrapper__card--price">${{ item.price }}</span>
+          <span class="menu-item-wrapper__card--price">${{ item.price.toFixed(2) }}</span>
         </li>
       </ul>
 
@@ -40,7 +40,7 @@
       <ul v-show="showDrink" class="menu-item-wrapper" v-for="menu in filteredDrinkList" :key="menu.id">
         <li class="menu-item-wrapper__card" v-for="item in menu.menuItems" :key="item.id" @click="highlighted(item)" :class="{ 'highlighted' : item.isHighlighted  }">
           <span class="menu-item-wrapper__card--name">{{ item.name }}</span>
-          <span class="menu-item-wrapper__card--price">${{ item.price }}</span>
+          <span class="menu-item-wrapper__card--price">${{ item.price.toFixed(2) }}</span>
         </li>
       </ul>
     </main>
@@ -54,7 +54,7 @@
         <transition-group name="slide-up" tag="ul" appear class="order-items-wrapper" v-for="(item, itemIndex) in order" :key="itemIndex">
           <li class="order-item" @click="openModificationModal(itemIndex)" :key="itemIndex">
             <span class="order-item__name">{{ item.name }}</span>
-            <span class="order-item__price">${{ item.price }}</span>
+            <span class="order-item__price">{{ item.price.toFixed(2) }}</span>
           </li>
           <span class="order-item__modification" :key="itemIndex + 1">{{ item.modifications }}</span>
         </transition-group>
@@ -442,6 +442,7 @@ export default {
       cursor: pointer;
       user-select: none;
       transition: all .2s;
+      text-transform: capitalize;
     }
 
     &__card:hover {
