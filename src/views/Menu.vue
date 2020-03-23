@@ -377,7 +377,7 @@ export default {
     &__link {
       color: #495057;
       text-decoration: none;
-      margin: 0 0.25rem;
+      margin-left: 0.25rem;
       cursor: pointer;
     }
   }
