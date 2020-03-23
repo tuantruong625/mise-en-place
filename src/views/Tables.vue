@@ -20,12 +20,9 @@
       </div>
     </main>
 
-    <!-- <modal v-if="tableModal" @close="tableModal = false">
-      <h3 slot="header">Would you like to remove yourself from the table?</h3>
-      <div slot="body" class="display-name__body">
-        <button class="display-name__body--button" @click="removeHost()">Confirm</button>
-      </div>
-    </modal>   -->
+    <aside class="message-board">
+      <h2>Message Board</h2>
+    </aside>
 
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
       <h3 slot="header">Set your display name</h3>
@@ -173,8 +170,8 @@ export default {
   background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%2376c9ba' fill-opacity='0.1'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   display: grid;
   grid-template-areas:
-  "header"
-  "table-main";
+  "header header header"
+  "table-main table-main message-board";
   grid-template-rows: 5rem auto;
 }
 
@@ -307,7 +304,6 @@ export default {
 
 .table-main {
   grid-area: table-main;
-  margin: 0 10rem 5rem 10rem;
   display: grid;
   grid-template-columns: auto auto auto auto;
 }
@@ -349,5 +345,15 @@ export default {
     }
   }
 }
+
+  .message-board {
+    grid-area: message-board;
+    background: #EFEEEE;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    margin: 1.5rem;
+    padding: 1.5rem;
+  }
 
 </style>
