@@ -67,7 +67,7 @@
       </ul>
 
       <div class="button-group">
-        <button class="order-button review-button">Review Order</button>
+        <button class="order-button review-button" @click="reviewOrder()">Review Order</button>
         <button class="order-button send-button">Send</button>
       </div>
     </aside>
@@ -157,6 +157,12 @@ export default {
     },
   },
   methods: {
+    reviewOrder(){
+      const tableId = this.tableId;
+      // eslint-disable-next-line no-console
+      console.log('this is the best');
+      this.$router.push({ path: '/review', query: { tableId } });
+    },
     increseOrderNumber(){
       if (this.orderNumber === 999){
         this.orderNumber = 0;
