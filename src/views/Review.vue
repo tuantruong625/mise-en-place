@@ -56,9 +56,9 @@ export default {
   },
   methods:{
     clearTable(){
-
-    },
-    incrementOrderNumber(){
+      this.order = [];
+      const clearServerId = '';
+      const setTableOpen = true;
       if (this.orderNumber === 999){
         this.orderNumber = 0;
       }
@@ -69,8 +69,14 @@ export default {
         .collection('tables')
         .doc(this.tableId)
         .update({
+          order: this.order,
+          serverId: clearServerId,
+          isOpen: setTableOpen,
           orderNumber: orderNumberPush,
+
         });
+      //take us back to the tables page
+      this.$router.push({ path: '/tables' });
     },
     async getOrderFromTables() {
       this.order = [];
