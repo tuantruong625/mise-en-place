@@ -74,11 +74,9 @@
     </aside>
 
     <modal v-if="modifyModal" @close="modifyModal = false">
-      <h3 slot="header">What would you like to modify?</h3>
+      <h3 slot="header" class="modal-header">How would you like to modify?</h3>
       <div slot="body" class="display-name__body">
-
         <label for="display-name" class="display-name__body--label">
-          <span>Modification</span>
           <input class="display-name__body--input" type="text" name="modify-item" id="modify-item" v-model="modifiedItem">
         </label>
         <button class="display-name__body--button" :disabled="!modifiedItem" @click="modifyItem()">Add Modification</button>
@@ -160,8 +158,6 @@ export default {
   methods: {
     reviewOrder(){
       const tableId = this.tableId;
-      // eslint-disable-next-line no-console
-      console.log('this is the best');
       this.$router.push({ path: '/review', query: { tableId } });
     },
     populateOrdersFromTable(e){
@@ -197,7 +193,6 @@ export default {
       }
       if (gotValueFromRoute){
         this.tableId = this.$route.query.tableId.toString();
-        this.getOrderFromTables();
       }
     },
     modifyItem(){
@@ -245,8 +240,10 @@ export default {
       const resRef = firebase.firestore().collection('tables');
       const resSnap = await resRef.doc(this.tableId).get();
       this.orderNumber = resSnap.data().orderNumber;
-      for (const orders of resSnap.data().order){
-        this.order.push(orders);
+      if (this.order !== null){
+        for (const orders of resSnap.data().order){
+          this.order.push(orders);
+        }
       }
     },
     // Get Table Names for Dropdown list
@@ -334,6 +331,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .modal-header{
+    font-family: Roboto Slab;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #495057;
+  }
   .card {
     height: 50px;;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
