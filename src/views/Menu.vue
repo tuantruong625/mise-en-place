@@ -14,7 +14,7 @@
         <span class="menu-nav__link" @click="showFood = true, showDrink = false" :class="{ active: showFood }">Food</span>
         <span class="menu-nav__link" @click="showDrink = true, showFood = false" :class="{ active: showDrink }">Drink</span>
       </nav>
-
+      <span class="menu-nav__link" @click="viewCalculator">Calculator</span>
     </header>
 
     <main class="menu-items">
@@ -85,6 +85,11 @@
         <button class="display-name__body--button"  @click="deleteItemOffOrder()">Delete</button>
       </div>
     </modal>
+
+    <calculator
+      v-show="showCalculator"
+      @close="closeCalculator"
+    />
   </section>
 </template>
 
@@ -92,14 +97,17 @@
 import firebase from 'firebase';
 import { pickBy } from 'lodash';
 import Modal from '@/components/Modal';
+import Calculator from '@/components/Calculator';
 
 export default {
   components: {
     Modal,
+    Calculator,
   },
   name: 'Menu',
   data() {
     return {
+      showCalculator: false,
       user: null,
       restaurant: {},
       showFood: true,
@@ -157,6 +165,12 @@ export default {
     },
   },
   methods: {
+    viewCalculator(){
+      this.showCalculator = true;
+    },
+    closeCalculator(){
+      this.showCalculator = false;
+    },
     increseOrderNumber(){
       if (this.orderNumber === 999){
         this.orderNumber = 0;
