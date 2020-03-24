@@ -150,22 +150,24 @@ export default {
   grid-column: 1 / 3;
 }
 .btn {
-  background-color:whitesmoke;
+  background-color:#f8f9fa;
   border: 1px solid rgb(167, 124, 124);
   color: black;
   cursor: pointer;
+  padding-left: 40px;
 }
 .btn:active{
     transform: scale(0.95);
 }
 .operator {
-  background-color: orange;
-  color: white;
+  background-color: rgb(5, 20, 102);
+  color: rgb(8, 147, 189);
 }
 .end{
-    background-color: orange;
-    color: rgb(176, 105, 209);
+    background-color: rgb(255, 0, 0);
+    color: rgb(0, 0, 0);
     cursor: pointer;
+    padding-left: 20px;
 }
 .end:active{
     transform: scale(0.95);
