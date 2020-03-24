@@ -28,12 +28,10 @@
             {{ message.message }}
           </dd>
           <dd class="message__date-time">
-            {{ message.messageDateTime.toDate() }}
+            {{ message.messageDateTime.toDate().toString().slice(0, 21) }}
           </dd>
         </dl>
       </div>
-
-
     </aside>
 
     <modal v-if="!user.displayName && showModal" @close="showModal = false">
