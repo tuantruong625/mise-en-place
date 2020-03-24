@@ -22,7 +22,7 @@
       </ul>
 
       <div class="button-group">
-        <button class="order-button send-button" @click="backButton()">Edit</button>
+        <button class="order-button edit-button" @click="backButton()">Edit</button>
         <button class="order-button print-button" @click="clearTable()">Print</button>
       </div>
     </aside>
@@ -240,7 +240,7 @@ export default {
   }
 
   .order-items-container {
-    height: 30rem;
+    height: 20rem;
     overflow: scroll;
   }
 
@@ -287,11 +287,23 @@ export default {
   }
 
   .order-button {
+    margin: 10px;
     width: 100%;
+    border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     height: 2.5rem;
   }
+
+.print-button{
+  color: #F8F9FA;
+  background: #282E72;
+}
+
+.edit-button{
+  color: #282E72;
+  background: #F8F9FA;
+}
 
   .review-button {
     border-bottom-left-radius: 5px;
