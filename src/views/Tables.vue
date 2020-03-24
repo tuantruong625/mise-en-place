@@ -197,25 +197,30 @@ export default {
   background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%2376c9ba' fill-opacity='0.1'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   display: grid;
   grid-template-areas:
-  "header header header"
+  "header header message-board"
   "table-main table-main message-board";
   grid-template-rows: 5rem auto;
 }
 
 .table-header {
   grid-area: header;
-  justify-self: center;
+  justify-self: self-start;
   align-self: center;
+  margin-left: 3rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: baseline;
+  font-size: 1.5rem;
 
   &__title {
-    font-size: 1.25rem;
+    color: #76c9ba;
+    font-size: 1.5rem;
   }
 
   &__details {
-    margin-top: 0.5rem;
+    font-size: 1.15rem;
+    margin: 0 0.5rem;
+    color: #868e96;
+
     &--occupied {
       color: #FF6B6B;
     }
@@ -332,7 +337,8 @@ export default {
 .table-main {
   grid-area: table-main;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(2, 12rem);
   grid-gap: 1.5rem;
 }
 
