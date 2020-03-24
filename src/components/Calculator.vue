@@ -43,6 +43,7 @@ export default {
   methods: {
     close() {
       this.$emit('close');
+      this.clear();
     },
     clear(){
       this.current = '';
