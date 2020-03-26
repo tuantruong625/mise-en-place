@@ -1,6 +1,7 @@
 <template>
   <section class="menu-container">
     <header class="menu-header">
+      
       <div class="menu-header-left">
         <h1 class="menu-header__title">Table</h1>
         <select class="menu-header-select" v-model="tableId" @change="populateOrdersFromTable($event)">
@@ -52,7 +53,7 @@
 
       <div class="order-items-container">
         <transition-group name="slide-up" tag="ul" appear class="order-items-wrapper" v-for="(item, itemIndex) in order" :key="itemIndex">
-          <li class="order-item" @click="openModificationModal(itemIndex)" :key="itemIndex">
+          <li class="order-item" @click="openModificationModal(item, itemIndex)" :key="itemIndex">
             <span class="order-item__name">{{ item.name }}</span>
             <span class="order-item__price">{{ item.price.toFixed(2) }}</span>
           </li>
@@ -67,22 +68,21 @@
       </ul>
 
       <div class="button-group">
-        <button class="order-button review-button">Review Order</button>
+        <button class="order-button review-button" @click="reviewOrder()">Review Order</button>
         <button class="order-button send-button">Send</button>
       </div>
     </aside>
 
     <modal v-if="modifyModal" @close="modifyModal = false">
-      <h3 slot="header">What would you like to modify?</h3>
+      <h3 slot="header" class="modal-header">How would you like to modify?</h3>
       <div slot="body" class="display-name__body">
-
         <label for="display-name" class="display-name__body--label">
-          <span>Modification</span>
+          <h4 class="modal-label">{{ itemName }}</h4>
           <input class="display-name__body--input" type="text" name="modify-item" id="modify-item" v-model="modifiedItem">
         </label>
-        <button class="display-name__body--button" :disabled="!modifiedItem" @click="modifyItem()">Add Modification</button>
-        <button class="display-name__body--button" @click="deleteModification()">Delete Modification</button>
-        <button class="display-name__body--button"  @click="deleteItemOffOrder()">Delete</button>
+        <button class="modal-button" :disabled="!modifiedItem" @click="modifyItem()">Add Modification</button>
+        <button class="modal-button" @click="deleteModification()">Delete Modification</button>
+        <button class="modal-button button-red"  @click="deleteItemOffOrder()">Delete</button>
       </div>
     </modal>
   </section>
@@ -117,6 +117,7 @@ export default {
       filteredTableList: [],
       tableData: [],
       orderNumber: 110,
+      itemName: '',
     };
   },
   watch: {
@@ -157,19 +158,9 @@ export default {
     },
   },
   methods: {
-    increseOrderNumber(){
-      if (this.orderNumber === 999){
-        this.orderNumber = 0;
-      }
-      const orderNumberPush = this.orderNumber+1;
-
-      firebase
-        .firestore()
-        .collection('tables')
-        .doc(this.tableId)
-        .update({
-          orderNumber: orderNumberPush,
-        });
+    reviewOrder(){
+      const tableId = this.tableId;
+      this.$router.push({ path: '/review', query: { tableId } });
     },
     populateOrdersFromTable(e){
       this.getOrderFromTables();
@@ -204,7 +195,6 @@ export default {
       }
       if (gotValueFromRoute){
         this.tableId = this.$route.query.tableId.toString();
-        this.getOrderFromTables();
       }
     },
     modifyItem(){
@@ -219,7 +209,8 @@ export default {
           order: this.order,
         });
     },
-    openModificationModal(itemIndex){
+    openModificationModal(item, itemIndex){
+      this.itemName = item.name;
       this.itemIndex = itemIndex;
       this.modifiedItem = '';
       this.modifyModal=true;
@@ -252,8 +243,10 @@ export default {
       const resRef = firebase.firestore().collection('tables');
       const resSnap = await resRef.doc(this.tableId).get();
       this.orderNumber = resSnap.data().orderNumber;
-      for (const orders of resSnap.data().order){
-        this.order.push(orders);
+      if (this.order !== null){
+        for (const orders of resSnap.data().order){
+          this.order.push(orders);
+        }
       }
     },
     // Get Table Names for Dropdown list
@@ -341,6 +334,60 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.modal-container{
+  width: 500px !important;
+}
+#modify-item{
+  width: 400px;
+  height: 43px;
+  margin: 1em;
+  background: #F8F9FA;
+  box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+.modal-button{
+    background-color: #73C9BA;
+    border: none;
+    box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button-red{
+  background-color: #FF8787;
+}
+  .modal-header{
+    font-family: Roboto Slab;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 24px;
+    margin-bottom: 0px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #495057;
+  }
+  .modal-label{
+
+    font-family: Roboto Slab;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 24px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #495057;
+  }
   .card {
     height: 50px;;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

@@ -31,6 +31,14 @@ const routes = [
     },
     children: [
       {
+        path: '/review',
+        name: 'review',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Review.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: '/menu',
         name: 'menu',
         component: () => import(/* webpackChunkName: "about" */ '../views/Menu.vue'),
