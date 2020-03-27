@@ -15,7 +15,6 @@
         <span class="menu-nav__link" @click="showFood = true, showDrink = false" :class="{ active: showFood }">Food</span>
         <span class="menu-nav__link" @click="showDrink = true, showFood = false" :class="{ active: showDrink }">Drink</span>
       </nav>
-
     </header>
 
     <main class="menu-items">
@@ -92,6 +91,7 @@
 import firebase from 'firebase';
 import { pickBy } from 'lodash';
 import Modal from '@/components/Modal';
+import Calculator from '@/components/Calculator';
 
 export default {
   components: {

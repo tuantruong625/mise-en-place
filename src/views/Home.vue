@@ -7,8 +7,9 @@
       </div>
 
       <div class="nav__links">
-        <router-link to="/tables"><img class="nav__icon" src="../assets/chair-solid.svg" alt=""></router-link>
-        <router-link to="/menu"><img class="nav__icon" src="../assets/utensils-solid.svg" alt=""></router-link>
+        <router-link to="/tables"><img class="nav__icon" src="../assets/chair-solid.svg" alt="tables"></router-link>
+        <router-link to="/menu"><img class="nav__icon" src="../assets/utensils-solid.svg" alt="menu"></router-link>
+        <span><img class="nav__icon" src="../assets/calculator.png" alt="calculator" @click="viewCalculator" style="cursor: pointer;"></span>
       </div>
 
       <div class="nav__profile">
@@ -18,17 +19,28 @@
       </div>
     </nav>
     <router-view @set-profile-data="setProfileData"/>
+
+    <calculator
+      v-show="showCalculator"
+      @close="closeCalculator"
+    />
   </div>
 </template>
+
 
 <script>
 import firebase from 'firebase';
 import { avatarImagesURL } from '@/assets/avatar-images.js';
+import Calculator from '@/components/Calculator';
 
 export default {
+  components:{
+    Calculator,
+  },
   data() {
     return {
       user: null,
+      showCalculator: false,
     };
   },
   created() {
@@ -43,6 +55,12 @@ export default {
     },
   },
   methods: {
+    viewCalculator(){
+      this.showCalculator = true;
+    },
+    closeCalculator(){
+      this.showCalculator = false;
+    },
     signout(e) {
       e.stopPropagation();
       firebase.auth().signOut().then(() => {
