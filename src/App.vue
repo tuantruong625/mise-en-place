@@ -4,8 +4,6 @@
   </div>
 </template>
 
-<style src="./css/reset.css" />
-<style src="./css/font.css" />
 <style>
   /*** TRANSITIONS ***/
   .fade-enter {
