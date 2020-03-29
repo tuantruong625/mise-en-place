@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import firebase from 'firebase';
-import SignIn from '../views/SignIn';
+import SignIn from '../views/SignIn/SignIn';
 
 Vue.use(VueRouter);
 
@@ -19,13 +19,13 @@ const routes = [
   {
     path: '/sign-up',
     name: 'sign-up',
-    component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/SignUp/SignUp.vue'),
   },
 
   {
     path: '/home',
     name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue'),
     meta: {
       requiresAuth: true,
     },
@@ -33,7 +33,7 @@ const routes = [
       {
         path: '/review',
         name: 'review',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Review.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../views/Review/Review.vue'),
         meta: {
           requiresAuth: true,
         },
@@ -41,7 +41,7 @@ const routes = [
       {
         path: '/menu',
         name: 'menu',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Menu.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../views/Menu/Menu.vue'),
         meta: {
           requiresAuth: true,
         },
@@ -49,7 +49,7 @@ const routes = [
       {
         path: '/tables',
         name: 'tables',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Tables.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../views/Tables/Tables.vue'),
         meta: {
           requiresAuth: true,
         },
