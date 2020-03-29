@@ -210,7 +210,7 @@ export default {
   font-size: 1.5rem;
 
   &__title {
-    color: #76c9ba;
+    color: $primary;
     font-size: 1.5rem;
   }
 

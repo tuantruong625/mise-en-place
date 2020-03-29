@@ -5,6 +5,7 @@ import store from './store';
 import './registerServiceWorker';
 import firebase from 'firebase';
 import 'firebase/firestore';
+import '@/scss/index.scss';
 
 Vue.use(firebase);
 
