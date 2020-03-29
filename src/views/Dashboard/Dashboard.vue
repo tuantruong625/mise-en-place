@@ -2,14 +2,14 @@
   <div class="home">
     <nav class="nav">
       <div class="nav__logo">
-        <img class="nav__logo--image" src="../assets/MPicon_blue.svg" alt="Logo">
+        <img class="nav__logo--image" src="../../assets/MPicon_blue.svg" alt="Logo">
         <span class="nav__logo--text">Mise en place</span>
       </div>
 
       <div class="nav__links">
-        <router-link to="/tables"><img class="nav__icon" src="../assets/chair-solid.svg" alt="tables"></router-link>
-        <router-link to="/menu"><img class="nav__icon" src="../assets/utensils-solid.svg" alt="menu"></router-link>
-        <span><img class="nav__icon" src="../assets/calculator.png" alt="calculator" @click="viewCalculator" style="cursor: pointer;"></span>
+        <router-link to="/tables"><img class="nav__icon" src="../../assets/chair-solid.svg" alt="tables"></router-link>
+        <router-link to="/menu"><img class="nav__icon" src="../../assets/utensils-solid.svg" alt="menu"></router-link>
+        <span><img class="nav__icon" src="../../assets/calculator.png" alt="calculator" @click="viewCalculator" style="cursor: pointer;"></span>
       </div>
 
       <div class="nav__profile">
@@ -75,62 +75,4 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss">
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f8f9fa;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  position: fixed;
-  top: 0;
-  width: 100%;
-
-  &__icon {
-    width: 1.5rem;
-    margin: 0 1rem;
-  }
-
-  &__logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-
-    &--image {
-      width: 4rem;
-    }
-
-    &--text {
-      margin-left: 0.5rem;
-      font-size: 1.25rem;
-    }
-  }
-
-  &__profile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-
-    &--display-name {
-      font-size: 1.25rem;
-      text-transform: capitalize;
-    }
-
-    &--avatar-image {
-      width: 2rem;
-      margin-right: 0.5rem;
-      border-radius: 50%;
-      border: 2px solid #282E72;
-      box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
-    }
-  }
-
-  &__sign-out-btn {
-    background: none;
-    border: none;
-    color: #282E72;
-  }
-}
-</style>
+<style scoped lang="scss" src="./Dashboard.scss"></style>
