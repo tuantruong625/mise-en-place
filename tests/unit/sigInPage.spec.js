@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import SignIn from '@/views/SignIn.vue';
+import SignIn from '@/views/SignIn/SignIn.vue';
 
 describe('SignIn View', () => {
   it('Renders Sign page', () => {

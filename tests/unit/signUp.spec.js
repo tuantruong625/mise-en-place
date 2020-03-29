@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
-import SignIn from '@/views/SignUp.vue';
-import Tables from '@/views/Tables.vue';
+import SignIn from '@/views/SignUp/SignUp.vue';
+import Tables from '@/views/Tables/Tables.vue';
 
 describe('SignUp View', () => {
   it('Renders Sign up page', () => {
@@ -9,7 +9,7 @@ describe('SignUp View', () => {
     expect(wrapper).toBeDefined();
   });
 
- 
+
   it('sign up for a new account', async() => {
     const signUp = jest.fn(() => {
       return Promise.resolve('result of createUserWithEmailAndPassword');
