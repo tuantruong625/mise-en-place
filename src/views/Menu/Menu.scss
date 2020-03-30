@@ -98,7 +98,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
   border-radius: 10px;
-  color: #76c9ba;
+  color: $primary;
   font-weight: 600;
 }
 
@@ -165,7 +165,7 @@
 }
 
 .active {
-  text-decoration: underline #76c9ba;
+  text-decoration: underline $primary;
   color: #495057;
 }
 
@@ -187,7 +187,7 @@
     color: #495057;
 
     &--number {
-      color: #76c9ba;
+      color: $primary;
     }
   }
 }
@@ -229,7 +229,7 @@
     font-size: 1.15rem;
 
     &--label {
-      color: #76c9ba;
+      color: $primary;
     }
   }
 }

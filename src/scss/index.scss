@@ -4,5 +4,11 @@
 @import './settings/settings.reset';
 @import './settings/settings.variables';
 
+// TOOLS
+@import './tools/tools.utility';
+
 // GENERIC
 @import './generic/generic.animation';
+
+// UTILITIES
+@import './utilities/utilities.colors';
