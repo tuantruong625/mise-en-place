@@ -16,7 +16,7 @@
   grid-area: order-items;
   display: grid;
   grid-template-columns: auto auto auto auto;
-  grid-auto-rows: 5rem;
+  grid-auto-rows: 3.5rem;
   grid-gap: 1rem;
 }
 .order {
@@ -31,7 +31,6 @@
 
   &__items {
     font-size: 1.25rem;
-    list-style: none;
     text-transform: capitalize;
 
     &--item {
@@ -39,7 +38,9 @@
     }
 
     &--item-name {
-
+      display: list-item;
+      margin-left: 1.5rem;
+      list-style: circle;
     }
 
     &--item-price {
