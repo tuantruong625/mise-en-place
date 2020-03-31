@@ -96,7 +96,6 @@
 import firebase from 'firebase';
 import { pickBy } from 'lodash';
 import Modal from '@/components/Modal';
-import Calculator from '@/components/Calculator';
 
 export default {
   components: {

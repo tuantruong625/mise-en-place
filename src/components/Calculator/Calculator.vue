@@ -7,7 +7,7 @@
           <div @click="clear" class="btn">C</div>
           <div @click="percent" class="btn">%</div>
           <div @click="dot" class="btn">.</div>
-          <div @click="close" class="end operator">End</div>
+          <div @click="close" class="end operator">Close</div>
           <div @click="append('7')" class="btn">7</div>
           <div @click="append('8')" class="btn">8</div>
           <div @click="append('9')" class="btn">9</div>
@@ -22,7 +22,7 @@
           <div @click="minus" class="btn operator">-</div>
           <div @click="append('0')" class="btn zero">0</div>
           <div @click="add" class="btn operator">+</div>
-          <div @click="equal" class="btn operator">=</div>
+          <div @click="equal" class="btn operator equal-btn">=</div>
         </div>
       </div>
     </div>
@@ -93,68 +93,4 @@ export default {
   },
 };
 </script>
-
-
-<style>
-.modal-fade-enter,
-  .modal-fade-leave-active {
-    opacity: 0;
-  }
-
-  .modal-fade-enter-active,
-  .modal-fade-leave-active {
-    transition: opacity .5s ease
-  }
-  .modal-backdrop {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-
-.calculator {
-  margin: 0 auto;
-  width: 400px;
-  font-size: 40px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(50px, auto);
-}
-.display {
-  grid-column: 1 / 5;
-  background-color: #333;
-  color: white;
-}
-.zero {
-  grid-column: 1 / 3;
-}
-.btn {
-  background-color:#f8f9fa;
-  border: 1px solid rgb(167, 124, 124);
-  color: black;
-  cursor: pointer;
-  padding-left: 40px;
-}
-.btn:active{
-    transform: scale(0.95);
-}
-.operator {
-  background-color: rgb(5, 20, 102);
-  color: rgb(8, 147, 189);
-}
-.end{
-    background-color: rgb(255, 0, 0);
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-    padding-left: 20px;
-}
-.end:active{
-    transform: scale(0.95);
-}
-</style>
+<style lang="scss" src="./Calculator.scss" scoped></style>

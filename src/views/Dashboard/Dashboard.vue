@@ -31,7 +31,7 @@
 <script>
 import firebase from 'firebase';
 import { avatarImagesURL } from '@/assets/avatar-images.js';
-import Calculator from '@/components/Calculator';
+import Calculator from '@/components/Calculator/Calculator';
 
 export default {
   components:{

@@ -1,0 +1,79 @@
+.modal-fade-enter,
+.modal-fade-leave-active {
+  opacity: 0;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity .5s ease
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculator {
+  margin: 0 auto;
+  width: 400px;
+  font-size: 40px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(50px, auto);
+
+}
+.display {
+  grid-column: 1 / 5;
+  background-color: $grey-7;
+  color: $white;
+  padding: 1rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.zero {
+  grid-column: 1 / 3;
+  border-bottom-left-radius: 5px;
+}
+.btn {
+  background-color:#f8f9fa;
+  border: 1px solid $grey-2;
+  color: $grey-7;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn:active{
+  transform: scale(0.95);
+}
+.operator {
+  background-color: $secondary;
+  color: $primary;
+  font-weight: 550;
+}
+.end{
+  background-color: $red-5;
+  color: $grey-0;
+  cursor: pointer;
+  font-size: 1.25rem;
+  text-align: center;
+  border: 1px solid $grey-2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.end:active{
+  transform: scale(0.95);
+}
+
+.equal-btn {
+  border-bottom-right-radius: 5px;
+}
