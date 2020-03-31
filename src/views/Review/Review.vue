@@ -1,31 +1,29 @@
 <template>
-  <section class="menu-container">
-    <aside class="menu-order">
-      <h2 class="menu-order__title">Order Number
-        <span class="menu-order__title--number">#{{ orderNumber }}</span>
-      </h2>
+  <section class="order-container">
+    <h2 class="menu-order__title">Order Number
+      <span class="menu-order__title--number">#{{ orderNumber }}</span>
+    </h2>
 
-      <div class="order-items-container">
-        <transition-group name="slide-up" tag="ul" appear class="order-items-wrapper" v-for="(item, itemIndex) in order" :key="itemIndex">
-          <li class="order-item"  :key="itemIndex">
-            <span class="order-item__name">{{ item.name }}</span>
-            <span class="order-item__price">{{ item.price.toFixed(2) }}</span>
-          </li>
-          <span class="order-item__modification" :key="itemIndex + 1">{{ item.modifications }}</span>
-        </transition-group>
-      </div>
+    <div class="order-items-container">
+      <transition-group name="slide-up" tag="ul" appear class="order-items-wrapper" v-for="(item, itemIndex) in order" :key="itemIndex">
+        <li class="order-item"  :key="itemIndex">
+          <span class="order-item__name">{{ item.name }}</span>
+          <span class="order-item__price">{{ item.price.toFixed(2) }}</span>
+        </li>
+        <span class="order-item__modification" :key="itemIndex + 1">{{ item.modifications }}</span>
+      </transition-group>
+    </div>
 
-      <ul class="order-total">
-        <li class="order-total__text"><span class="order-total__text--label">Subtotal: </span>{{ subTotal }}</li>
-        <li class="order-total__text"><span class="order-total__text--label">Tax: </span>{{ tax }}</li>
-        <li class="order-total__text"><span class="order-total__text--label">Total: </span>{{ total }}</li>
-      </ul>
+    <ul class="order-total">
+      <li class="order-total__text"><span class="order-total__text--label">Subtotal: </span>{{ subTotal }}</li>
+      <li class="order-total__text"><span class="order-total__text--label">Tax: </span>{{ tax }}</li>
+      <li class="order-total__text"><span class="order-total__text--label">Total: </span>{{ total }}</li>
+    </ul>
 
-      <div class="button-group">
-        <button class="order-button edit-button" @click="backButton()">Edit</button>
-        <button class="order-button print-button" @click="clearTable()">Print</button>
-      </div>
-    </aside>
+    <div class="button-group">
+      <button class="order-button edit-button" @click="backButton()">Edit</button>
+      <button class="order-button print-button" @click="clearTable()">Print</button>
+    </div>
   </section>
 </template>
 <script>
