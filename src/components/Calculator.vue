@@ -85,7 +85,7 @@ export default {
     },
     equal() {
       this.current = `${this.operator(
-        parseFloat(this.previous), 
+        parseFloat(this.previous),
         parseFloat(this.current)
       )}`;
       this.previous = null;
@@ -111,29 +111,13 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .modal {
-    background: #FFFFFF;
-    box-shadow: 2px 2px 20px 1px;
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
-  }
 
-  .modal-header{
-    padding: 5px;
-    font-size: 25px;
-    color: brown;
-    cursor: pointer;
-    font-weight: bold;
-    padding-left: 370px;
-  }
-  
 .calculator {
   margin: 0 auto;
   width: 400px;

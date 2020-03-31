@@ -1,7 +1,6 @@
 <template>
   <section class="menu-container">
     <header class="menu-header">
-
       <div class="menu-header-left">
         <h1 class="menu-header__title">Table</h1>
         <select class="menu-header-select" v-model="tableId" @change="populateOrdersFromTable($event)">
@@ -9,8 +8,8 @@
             {{ table }}
           </option>
         </select>
-
       </div>
+
       <nav class="menu-nav">
         <span class="menu-nav__link" @click="showFood = true, showDrink = false" :class="{ active: showFood }">Food</span>
         <span class="menu-nav__link" @click="showDrink = true, showFood = false" :class="{ active: showDrink }">Drink</span>
@@ -72,18 +71,24 @@
       </div>
     </aside>
 
-    <modal v-if="modifyModal" @close="modifyModal = false">
-      <h3 slot="header" class="modal-header">How would you like to modify?</h3>
-      <div slot="body" class="display-name__body">
-        <label for="display-name" class="display-name__body--label">
-          <h4 class="modal-label">{{ itemName }}</h4>
-          <input class="display-name__body--input" type="text" name="modify-item" id="modify-item" v-model="modifiedItem">
+    <modal v-if="modifyModal" @close="modifyModal = false" class="menu-modal">
+      <h3 slot="header" class="menu-modal__header">
+        How would you like to modify <span class="menu-modal__item-name">{{ itemName }}</span>?
+      </h3>
+      <div slot="body" class="menu-modal-body">
+        <button class="modal-button modal-button__remove"  @click="deleteItemOffOrder()">Remove</button>
+        <label for="modify-item" class="menu-modal-body__form-group">
+          <span class="menu-modal-body__form-group--label">Modification</span>
+          <input class="menu-modal-body__form-group--input" type="text" name="modify-item" id="modify-item" v-model="modifiedItem" placeholder="Add modification">
         </label>
-        <button class="modal-button" :disabled="!modifiedItem" @click="modifyItem()">Add Modification</button>
-        <button class="modal-button" @click="deleteModification()">Delete Modification</button>
-        <button class="modal-button button-red"  @click="deleteItemOffOrder()">Delete</button>
+
+        <div class="menu-modal__button-group">
+          <button class="modal-button modal-button__add-mod" :disabled="!modifiedItem" @click="modifyItem()">Add Mod</button>
+          <button class="modal-button modal-button__remove-mod" @click="deleteModification()">Remove Mod</button>
+        </div>
       </div>
     </modal>
+
   </section>
 </template>
 
