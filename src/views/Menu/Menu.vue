@@ -173,6 +173,13 @@ export default {
       else {
         this.order.splice(this.itemIndex, 1);
         this.modifyModal = false;
+        firebase
+          .firestore()
+          .collection('tables')
+          .doc(this.tableId)
+          .update({
+            order: this.order,
+          });
       }
     },
     deleteModification(){
