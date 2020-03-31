@@ -95,6 +95,7 @@ export default {
     box-shadow: $shadow-xs;
     height: 2.5rem;
     border-radius: 5px;
+    background: $white;
   }
 
 </style>

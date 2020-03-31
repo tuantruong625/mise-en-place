@@ -180,18 +180,24 @@
 .order-button {
   width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  box-shadow: $shadow-md;
   height: 2.5rem;
+  color: $grey-0;
 }
 
 .review-button {
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
+  background: $secondary;
 }
 
 .send-button {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  color: $primary;
+  border: 1px solid $primary;
+  border-left: 1px solid transparent;
+  background: $white;
 }
 
 .menu-modal {
@@ -273,5 +279,10 @@ and (max-device-width : 1024px) {
       min-width: 150px;
       max-width: 180px;
     }
+  }
+
+  .order-items-container {
+    height: 22rem;
+    overflow: scroll;
   }
 }
