@@ -79,7 +79,7 @@
         <button class="modal-button modal-button__remove"  @click="deleteItemOffOrder()">Remove</button>
         <label for="modify-item" class="menu-modal-body__form-group">
           <span class="menu-modal-body__form-group--label">Modification</span>
-          <input class="menu-modal-body__form-group--input" type="text" name="modify-item" id="modify-item" v-model="modifiedItem" placeholder="Add modification">
+          <input class="menu-modal-body__form-group--input" type="text" name="modify-item" id="modify-item" v-model="modifiedItem">
         </label>
 
         <div class="menu-modal__button-group">
