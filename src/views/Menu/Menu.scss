@@ -75,6 +75,8 @@
 .menu-item-wrapper {
   display: grid;
   align-self: start;
+  width: 100%;
+
   grid-template-columns: auto auto auto;
 
   &__card {

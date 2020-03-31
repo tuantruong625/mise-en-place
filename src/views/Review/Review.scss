@@ -17,24 +17,25 @@
   display: grid;
   grid-template-columns: auto auto auto auto;
   grid-auto-rows: 5rem;
+  grid-gap: 1rem;
 }
 .order {
   &__title {
     grid-area: title;
     font-size: 2rem;
+    font-weight: 600;
     &--number {
       color: $primary;
     }
   }
 
-
-
   &__items {
     font-size: 1.25rem;
     list-style: none;
     text-transform: capitalize;
-    &--item {
 
+    &--item {
+      display: flex;
     }
 
     &--item-name {
@@ -42,7 +43,8 @@
     }
 
     &--item-price {
-      padding-left: 2rem;
+
+      margin-left: auto;
     }
 
     &--item-modification {
