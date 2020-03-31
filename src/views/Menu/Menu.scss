@@ -149,7 +149,8 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: $shadow-lg;
     border-radius: 10px;
-    width: 250px;
+    min-width: 180px;
+    max-width: 200px;
     height: 60px;
     cursor: pointer;
     user-select: none;
