@@ -1,8 +1,8 @@
 .table-container {
+  background-color: #fcfdff;
   min-height: calc(100vh - 96px);
   margin-top: 5.8rem;
   color: #495057;
-  background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%2376c9ba' fill-opacity='0.1'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   display: grid;
   grid-template-areas:
           "header header message-board"
@@ -14,27 +14,27 @@
   grid-area: header;
   justify-self: self-start;
   align-self: center;
-  margin-left: 3rem;
   display: flex;
+  flex-direction: column;
   align-items: baseline;
   font-size: 1.5rem;
+  margin: 2rem 0 0 3rem;
 
   &__title {
-    color: $primary;
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   &__details {
     font-size: 1.15rem;
-    margin: 0 0.5rem;
+    margin-top: 0.5rem;
     color: #868e96;
 
     &--occupied {
-      color: #FF6B6B;
+      color: $error;
     }
 
     &--empty {
-      color: #2F9E44;
+      color: $success;
     }
   }
 }
@@ -42,9 +42,9 @@
 .card {
   width: 150px;
   height: 150px;
-  background: #EFEEEE;
+  background: $white;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+  box-shadow: $shadow-lg;
   border-radius: 10px;
   justify-self: center;
   align-self: center;
@@ -181,7 +181,7 @@
       color: #fff;
       margin: 1rem 0;
       &:disabled {
-        background: #282E72;
+        background: $secondary;
         opacity: 75%;
       }
     }
@@ -190,10 +190,7 @@
 
 .message-board {
   grid-area: message-board;
-  background: #EFEEEE;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
+  border-left: 2px solid $grey-1;
   margin: 1.5rem;
   padding: 1.5rem;
   font-size: 1.25rem;
@@ -213,7 +210,7 @@
 
   &__date-time {
     font-size: 1rem;
-    color: #868e96;
+    color: $grey-6;
   }
 }
 

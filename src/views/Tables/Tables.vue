@@ -1,7 +1,7 @@
 <template>
   <section class="table-container">
     <header class="table-header">
-      <h1 class="table-header__title">Main Dining Room</h1>
+      <h1 class="table-header__title +text-primary">Main Dining Room</h1>
       <p class="table-header__details">
         Occupied tables: <span class="table-header__details--occupied">{{ occupiedTables }}</span>
         | Empty tables: <span class="table-header__details--empty">{{ emptyTables }}</span>
