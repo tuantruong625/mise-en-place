@@ -7,6 +7,7 @@
   position: fixed;
   top: 0;
   width: 100%;
+  color: $grey-7;
 
   &__icon {
     width: 1.5rem;
@@ -45,13 +46,13 @@
       margin-right: 0.5rem;
       border-radius: 50%;
       border: 2px solid #282E72;
-      box-shadow: 6px 6px 16px rgba(209, 205, 199, 0.5), -6px -6px 16px rgba(255, 255, 255, 0.5);
+      box-shadow: $shadow-md;
     }
   }
 
   &__sign-out-btn {
     background: none;
     border: none;
-    color: #282E72;
+    color: $secondary;
   }
 }

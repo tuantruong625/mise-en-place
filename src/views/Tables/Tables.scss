@@ -2,7 +2,7 @@
   background-color: #fcfdff;
   min-height: calc(100vh - 96px);
   margin-top: 5.8rem;
-  color: #495057;
+  color: $grey-8;
   display: grid;
   grid-template-areas:
           "header header message-board"
@@ -80,8 +80,8 @@
       width: 25px;
       height: 25px;
       border-radius: 50%;
-      background: #F0F0F3;
-      box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.7), inset -2px -2px 4px rgba(174, 174, 192, 0.2);
+      background: $grey-2;
+      box-shadow: $shadow-md;
     }
 
     &::after {
@@ -91,7 +91,7 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: #2F9E44;
+      background: $success;
     }
   }
 
@@ -109,8 +109,8 @@
       width: 25px;
       height: 25px;
       border-radius: 50%;
-      background: #F0F0F3;
-      box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.7), inset -2px -2px 4px rgba(174, 174, 192, 0.2);
+      background: $grey-2;
+      box-shadow: $shadow-md;
     }
 
     &::after {
