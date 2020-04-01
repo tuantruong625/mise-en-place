@@ -76,3 +76,17 @@ export default {
 };
 </script>
 <style scoped lang="scss" src="./Dashboard.scss"></style>
+<style>
+@media print {
+  .nav__links, .nav__profile{
+    display: none !important;
+  }
+  
+  .nav {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-content: center !important;
+  }
+}
+</style>

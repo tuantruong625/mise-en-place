@@ -82,6 +82,8 @@ export default {
           orderNumber: orderNumberPush,
 
         });
+
+        window.print();
       //take us back to the tables page
       this.$router.push({ path: '/tables' });
     },
@@ -101,4 +103,44 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped src="./Review.scss"></style>
+
+<style lang="scss" src="./Review.scss"></style>
+<style>
+@media print {  
+  .order-container {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-content: center !important;
+    color: #000 !important;
+    position: fixed !important;
+  }
+
+  .order__title {
+    display: flex !important;
+    justify-content: center !important;
+    font-size: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .order-items-wrapper {
+    grid-template-columns: auto !important;
+    justify-self: center !important;
+    margin: 0 !important;
+    list-style-type: none !important;
+  }
+
+  .order__items {
+    font-size: 1rem !important;
+  }
+
+  .order__items--item-name {
+    margin: 0 !important;
+  }
+
+  .order-notes__button-group {
+    display: none !important;
+  }
+    
+}
+</style>
