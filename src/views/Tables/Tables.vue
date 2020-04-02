@@ -120,6 +120,11 @@ export default {
       const tableIsEmpty = table.serverId === '';
 
       if (tableIsEmpty){
+        let myToast = this.$toasted.show(userId +', you have booked table ' + tableId, {
+          theme: 'outline', 
+	        position: 'top-right', 
+          duration : 2000,
+        });
         firebase
           .firestore()
           .collection('tables')
@@ -130,16 +135,16 @@ export default {
           });
       }
 
-      if (tableIsTaken){
+      else if (tableIsTaken){
         let myToast = this.$toasted.show('Table ' + tableId + ' has been assigned to ' + table.serverId, {
           theme: 'outline', 
 	        position: 'top-right', 
-          duration : 1000,
+          duration : 2000,
         });
         return;
       }
 
-      if (tableIsYours){
+      else if (tableIsYours){
         let loadingToast = this.$toasted.show('Loading...',{
           theme: 'toasted-primary', 
           position: 'bottom-left', 

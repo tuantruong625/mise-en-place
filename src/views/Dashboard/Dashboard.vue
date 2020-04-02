@@ -8,7 +8,7 @@
 
       <div class="nav__links">
         <router-link to="/tables"><img class="nav__icon" src="../../assets/chair-solid.svg" alt="tables"></router-link>
-        <router-link to="/menu"><img class="nav__icon" src="../../assets/utensils-solid.svg" alt="menu"></router-link>
+        <router-link to="/menu"><img class="nav__icon" src="../../assets/utensils-solid.svg" alt="menu" @click="LoadToastMsg()"></router-link>
         <span><img class="nav__icon" src="../../assets/calculator.png" alt="calculator" @click="viewCalculator" style="cursor: pointer;"></span>
       </div>
 
@@ -55,6 +55,13 @@ export default {
     },
   },
   methods: {
+    LoadToastMsg(){
+      let loadingToast = this.$toasted.show('Loading...',{
+        theme: 'toasted-primary', 
+        position: 'bottom-left', 
+        duration : 1600,
+      });
+    },
     viewCalculator(){
       this.showCalculator = true;
     },
