@@ -54,12 +54,22 @@ import Modal from '@/components/Modal';
 import { avatarImagesURL } from '@/assets/avatar-images.js';
 import { pickBy } from 'lodash';
 
+// register the plugin on vue
+import Vue from 'vue';
+import Toasted from 'vue-toasted';
+Vue.use(Toasted);
+// you can also pass options, check options reference below
+Vue.use(Toasted);
+
 export default {
   components: {
     Modal,
   },
   data() {
     return {
+
+
+      //---------------------------------------------
       user: null,
       displayName: null,
       showModal: true,
@@ -121,10 +131,20 @@ export default {
       }
 
       if (tableIsTaken){
+        let myToast = this.$toasted.show('Table ' + tableId + ' has been assigned to ' + table.serverId, {
+          theme: 'outline', 
+	        position: 'top-right', 
+          duration : 1000,
+        });
         return;
       }
 
       if (tableIsYours){
+        let loadingToast = this.$toasted.show('Loading...',{
+          theme: 'toasted-primary', 
+          position: 'bottom-left', 
+          duration : 1600,
+        });
         this.$router.push({ path: '/menu', query: { tableId } });
       }
 
