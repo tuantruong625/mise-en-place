@@ -67,7 +67,7 @@
 
       <div class="button-group">
         <button class="order-button review-button" @click="reviewOrder()">Review Order</button>
-        <button class="order-button send-button">Send</button>
+        <button class="order-button send-button" @click="sendOrder()">Send</button>
       </div>
     </aside>
 
@@ -162,6 +162,13 @@ export default {
     },
   },
   methods: {
+    sendOrder(){
+      let myToast = this.$toasted.show('Order has been sent!', {
+        theme: 'outline', 
+	        position: 'top-right', 
+        duration : 2000,
+      });
+    },
     reviewOrder(){
       const tableId = this.tableId;
       this.$router.push({ path: '/review', query: { tableId } });

@@ -59,10 +59,20 @@ export default {
   },
   methods:{
     backButton(){
+      let loadingToast = this.$toasted.show('Loading...',{
+        theme: 'toasted-primary', 
+        position: 'bottom-left', 
+        duration : 1600,
+      });
       const tableId = this.tableId;
       this.$router.push({ path: '/menu', query: { tableId } });
     },
     clearTable(){
+      let printToast = this.$toasted.show('Your order has been sent to the printer',{
+        theme: 'toasted-primary', 
+        position: 'top-right', 
+        duration : 1500,
+      });
       this.order = [];
       const clearServerId = '';
       const setTableOpen = true;
