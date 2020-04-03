@@ -165,7 +165,7 @@ export default {
     sendOrder(){
       let myToast = this.$toasted.show('Order has been sent!', {
         theme: 'outline', 
-        position: 'top-center', 
+	        position: 'top-right', 
         duration : 2000,
       });
     },
