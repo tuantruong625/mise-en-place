@@ -162,6 +162,16 @@ export default {
     },
   },
   methods: {
+<<<<<<< Updated upstream
+=======
+    sendOrder(){
+      let myToast = this.$toasted.show('Order has been sent!', {
+        theme: 'outline', 
+	        position: 'top-center', 
+        duration : 2000,
+      });
+    },
+>>>>>>> Stashed changes
     reviewOrder(){
       const tableId = this.tableId;
       this.$router.push({ path: '/review', query: { tableId } });

@@ -12,7 +12,7 @@ module.exports = {
 
   rules: {
     semi: ['error', 'always'],
-    "no-unused-vars": "off",
+    'no-unused-vars': 'off',
     'comma-dangle': ['error', 'always-multiline'],
     indent: ['error', 2, { SwitchCase: 1 }],
     quotes: ['error', 'single'],

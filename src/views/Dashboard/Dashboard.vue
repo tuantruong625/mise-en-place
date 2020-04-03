@@ -55,6 +55,16 @@ export default {
     },
   },
   methods: {
+<<<<<<< Updated upstream
+=======
+    LoadToastMsg(){
+      let loadingToast = this.$toasted.show('Loading...',{
+        theme: 'outline', 
+        position: 'top-center', 
+        duration : 1600,
+      });
+    },
+>>>>>>> Stashed changes
     viewCalculator(){
       this.showCalculator = true;
     },

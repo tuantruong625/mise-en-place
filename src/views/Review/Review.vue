@@ -59,10 +59,26 @@ export default {
   },
   methods:{
     backButton(){
+<<<<<<< Updated upstream
+=======
+      let loadingToast = this.$toasted.show('Loading...',{
+        theme: 'outline', 
+        position: 'top-center', 
+        duration : 1600,
+      });
+>>>>>>> Stashed changes
       const tableId = this.tableId;
       this.$router.push({ path: '/menu', query: { tableId } });
     },
     clearTable(){
+<<<<<<< Updated upstream
+=======
+      let printToast = this.$toasted.show('Your order has been sent to the printer',{
+        theme: 'outline', 
+        position: 'top-center', 
+        duration : 1500,
+      });
+>>>>>>> Stashed changes
       this.order = [];
       const clearServerId = '';
       const setTableOpen = true;
