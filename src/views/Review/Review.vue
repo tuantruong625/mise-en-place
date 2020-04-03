@@ -1,33 +1,33 @@
 <template>
-  <section class="order-container order">
-    <h2 class="order__title">
-      Order Number
-      <span class="order__title--number">#{{ orderNumber }}</span>
-    </h2>
+  <section class="menu-container">
+    <aside class="menu-order">
+      <h2 class="menu-order__title">Order Number
+        <span class="menu-order__title--number">#{{ tableId+'-'+orderNumber }}</span>
+      </h2>
 
-    <div class="order-items-wrapper">
-      <transition-group name="slide-up" tag="ul" appear class="order__items" v-for="(item, itemIndex) in order" :key="itemIndex">
-        <li class="order__items--item"  :key="itemIndex">
-          <span class="order__items--item-name">{{ item.name }}</span>
-          <span class="order__items--item-price">{{ item.price.toFixed(2) }}</span>
-        </li>
-        <span class="order__items--ites-modification" :key="itemIndex + 1">{{ item.modifications }}</span>
-      </transition-group>
-    </div>
-
-    <div class="order-notes">
-      <ul class="order-notes__total">
-        <li class="order-notes__total--text"><span class="order-total__text--label">Subtotal: </span>{{ subTotal }}</li>
-        <li class="order-notes__total--text"><span class="order-total__text--label">Tax: </span>{{ tax }}</li>
-        <li class="order-notes__total--text"><span class="order-total__text--label">Total: </span>{{ total }}</li>
-      </ul>
-
-      <div class="order-notes__button-group">
-        <button class="order-button order-button__edit" @click="backButton()">Edit</button>
-        <button class="order-button order-button__print" @click="clearTable()">Print</button>
+      <div class="order-items-wrapper">
+        <transition-group name="slide-up" tag="ul" appear class="order__items" v-for="(item, itemIndex) in order" :key="itemIndex">
+          <li class="order__items--item"  :key="itemIndex">
+            <span class="order__items--item-name">{{ item.name }}</span>
+            <span class="order__items--item-price">{{ item.price.toFixed(2) }}</span>
+          </li>
+          <span class="order__items--ites-modification" :key="itemIndex + 1">{{ item.modifications }}</span>
+        </transition-group>
       </div>
-    </div>
 
+      <div class="order-notes">
+        <ul class="order-notes__total">
+          <li class="order-notes__total--text"><span class="order-total__text--label">Subtotal: </span>{{ subTotal }}</li>
+          <li class="order-notes__total--text"><span class="order-total__text--label">Tax: </span>{{ tax }}</li>
+          <li class="order-notes__total--text"><span class="order-total__text--label">Total: </span>{{ total }}</li>
+        </ul>
+
+        <div class="order-notes__button-group">
+          <button class="order-button order-button__edit" @click="backButton()">Edit</button>
+          <button class="order-button order-button__print" @click="clearTable()">Print</button>
+        </div>
+      </div>
+    </aside>
   </section>
 </template>
 <script>
