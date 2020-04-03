@@ -122,7 +122,7 @@ export default {
       if (tableIsEmpty){
         let myToast = this.$toasted.show(userId +', you have booked table ' + tableId, {
           theme: 'outline', 
-	        position: 'top-right', 
+          position: 'top-center', 
           duration : 2000,
         });
         firebase
@@ -138,7 +138,7 @@ export default {
       else if (tableIsTaken){
         let myToast = this.$toasted.show('Table ' + tableId + ' has been assigned to ' + table.serverId, {
           theme: 'outline', 
-	        position: 'top-right', 
+          position: 'top-center', 
           duration : 2000,
         });
         return;
