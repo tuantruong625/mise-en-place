@@ -46,7 +46,7 @@
 
     <aside class="menu-order">
       <h2 class="menu-order__title">Order Number
-        <span class="menu-order__title--number">#{{ orderNumber }}</span>
+        <span class="menu-order__title--number">#{{ tableId + '-' + orderNumber }}</span>
       </h2>
 
       <div class="order-items-container">
@@ -165,7 +165,7 @@ export default {
     sendOrder(){
       let myToast = this.$toasted.show('Order has been sent!', {
         theme: 'outline', 
-	        position: 'top-right', 
+        position: 'top-center', 
         duration : 2000,
       });
     },

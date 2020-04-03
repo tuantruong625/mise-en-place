@@ -2,7 +2,7 @@
   <section class="order-container order">
     <h2 class="order__title">
       Order Number
-      <span class="order__title--number">#{{ orderNumber }}</span>
+      <span class="order__title--number">#{{ tableId + '-' + orderNumber }}</span>
     </h2>
 
     <div class="order-items-wrapper">
