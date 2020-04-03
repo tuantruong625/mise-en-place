@@ -57,8 +57,8 @@ export default {
   methods: {
     LoadToastMsg(){
       let loadingToast = this.$toasted.show('Loading...',{
-        theme: 'outline', 
-	      position: 'top-center', 
+        theme: 'toasted-primary', 
+        position: 'bottom-left', 
         duration : 1600,
       });
     },

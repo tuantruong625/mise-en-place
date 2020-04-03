@@ -122,7 +122,7 @@ export default {
       if (tableIsEmpty){
         let myToast = this.$toasted.show(userId +', you have booked table ' + tableId, {
           theme: 'outline', 
-	        position: 'top-center', 
+          position: 'top-center', 
           duration : 2000,
         });
         firebase
@@ -138,7 +138,7 @@ export default {
       else if (tableIsTaken){
         let myToast = this.$toasted.show('Table ' + tableId + ' has been assigned to ' + table.serverId, {
           theme: 'outline', 
-	        position: 'top-center', 
+          position: 'top-center', 
           duration : 2000,
         });
         return;
@@ -146,8 +146,8 @@ export default {
 
       else if (tableIsYours){
         let loadingToast = this.$toasted.show('Loading...',{
-          theme: 'outline', 
-          position: 'top-center', 
+          theme: 'toasted-primary', 
+          position: 'bottom-left', 
           duration : 1600,
         });
         this.$router.push({ path: '/menu', query: { tableId } });

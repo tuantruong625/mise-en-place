@@ -60,8 +60,8 @@ export default {
   methods:{
     backButton(){
       let loadingToast = this.$toasted.show('Loading...',{
-        theme: 'outline', 
-	      position: 'top-center', 
+        theme: 'toasted-primary', 
+        position: 'bottom-left', 
         duration : 1600,
       });
       const tableId = this.tableId;
@@ -69,8 +69,8 @@ export default {
     },
     clearTable(){
       let printToast = this.$toasted.show('Your order has been sent to the printer',{
-        theme: 'outline', 
-	      position: 'top-center', 
+        theme: 'toasted-primary', 
+        position: 'top-right', 
         duration : 1500,
       });
       this.order = [];
