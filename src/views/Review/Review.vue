@@ -27,7 +27,7 @@
           <button class="order-button order-button__print" @click="clearTable()">Print</button>
         </div>
       </div>
-
+    </aside>
   </section>
 </template>
 <script>
